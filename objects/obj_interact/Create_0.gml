@@ -1,13 +1,9 @@
-
 terminal_open = false; // Track if terminal is open
-
-
-Rectanglex1 = x -30
-Rectangley1 = y-30
-Rectanglex2 = x+30
-Rectangley2 = y+30
-popup_id = instance_create_layer(x,y-25,layer, obj_promptkey)
-
+Rectanglex1 = x - 30;
+Rectangley1 = y - 30;
+Rectanglex2 = x + 30;
+Rectangley2 = y + 30;
+popup_id = instance_create_layer(x, y-25, layer, obj_promptkey);
 popup_id.visible = false;
-
 has_been_interacted = false;
+global.previous_room = 0 

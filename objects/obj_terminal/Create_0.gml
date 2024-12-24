@@ -5,6 +5,7 @@ cursorPosition = 0;
 inputBuffer = "";
 outputBuffer = "";
 cursorBlink = true;
+persistent = true; 
 alarm[0] = room_speed/2; // Cursor blink timer
 
 // Create Event
