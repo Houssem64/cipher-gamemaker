@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"Script3",
+  "%Name":"scr_phone_functions",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Script3",
+  "name":"scr_phone_functions",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

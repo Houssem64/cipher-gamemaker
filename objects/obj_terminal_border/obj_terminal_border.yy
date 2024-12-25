@@ -6,8 +6,8 @@
   "name":"obj_terminal_border",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"terminal",
+    "path":"folders/Objects/terminal.yy",
   },
   "parentObjectId":null,
   "persistent":false,

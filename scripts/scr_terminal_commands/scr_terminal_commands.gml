@@ -4,25 +4,78 @@ function processCommand(cmd) {
     
     switch(command) {
         case "ls":
-            outputBuffer += "\nDocuments  Downloads  Pictures  Music";
+            // Check if -l flag is present for long listing
+            var use_long_format = false;
+            if (array_length(parts) > 1 && parts[1] == "-l") {
+                use_long_format = true;
+            }
+            
+            if (use_long_format) {
+                // Long format with details
+                outputBuffer += "\ntype  size   modified    name\n";
+                outputBuffer += "d     4.1K   Dec 24      Documents\n";
+                outputBuffer += "d     8.2K   Dec 23      Downloads\n";
+                outputBuffer += "d     12.4K  Dec 24      Pictures\n";
+                outputBuffer += "d     15.7K  Dec 23      Music";
+            } else {
+                // Simple format (original behavior)
+                outputBuffer += "\nDocuments  Downloads  Pictures  Music";
+            }
             break;
             
         case "cd":
             if (array_length(parts) > 1) {
                 var newDir = parts[1];
-                if (newDir == "..") {
-                    // Move up one directory
+                
+                // Handle home directory
+                if (newDir == "~" || newDir == "") {
+                    currentDirectory = "/home/kali";
+                } 
+                // Handle root directory
+                else if (newDir == "/") {
+                    currentDirectory = "/";
+                }
+                // Handle parent directory
+                else if (newDir == "..") {
                     var lastSlash = string_last_pos("/", currentDirectory);
                     if (lastSlash > 1) {
                         currentDirectory = string_copy(currentDirectory, 1, lastSlash - 1);
                     }
-                } else if (string_char_at(newDir, 1) == "/") {
-                    currentDirectory = newDir;
-                } else {
-                    currentDirectory += "/" + newDir;
                 }
+                // Handle current directory
+                else if (newDir == ".") {
+                    // Do nothing, stay in current directory
+                }
+                // Handle absolute paths
+                else if (string_char_at(newDir, 1) == "/") {
+                    // Only change if it's a valid directory
+                    if (string_pos("Documents", newDir) > 0 || 
+                        string_pos("Downloads", newDir) > 0 || 
+                        string_pos("Pictures", newDir) > 0 || 
+                        string_pos("Music", newDir) > 0) {
+                        currentDirectory = newDir;
+                    } else {
+                        outputBuffer += "\ncd: no such directory: " + newDir;
+                    }
+                }
+                // Handle relative paths
+                else {
+                    // Only change if it's a valid directory
+                    if (newDir == "Documents" || 
+                        newDir == "Downloads" || 
+                        newDir == "Pictures" || 
+                        newDir == "Music") {
+                        currentDirectory += "/" + newDir;
+                    } else {
+                        outputBuffer += "\ncd: no such directory: " + newDir;
+                    }
+                }
+            } else {
+                // cd with no arguments goes to home
+                currentDirectory = "/home/kali";
             }
             outputBuffer += "\n" + currentDirectory;
+            promptSymbol = "kali@kali:" + currentDirectory + "$ ";
             break;
             
         case "pwd":
@@ -35,8 +88,8 @@ function processCommand(cmd) {
             
         case "help":
             outputBuffer += "\nAvailable commands:\n";
-            outputBuffer += "ls - List directory contents\n";
-            outputBuffer += "cd - Change directory\n";
+            outputBuffer += "ls [-l] - List directory contents (use -l for long format)\n";
+            outputBuffer += "cd [dir] - Change directory (use ~, ., .., or directory name)\n";
             outputBuffer += "pwd - Print working directory\n";
             outputBuffer += "clear - Clear screen\n";
             outputBuffer += "help - Show this help";
@@ -46,6 +99,7 @@ function processCommand(cmd) {
             outputBuffer += "\nCommand not found: " + command;
     }
 }
+
 function string_split(str, delimiter) {
     var result = [];
     var pos = string_pos(delimiter, str);
