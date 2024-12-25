@@ -1,3 +1,16 @@
+if (!bootComplete && alarm[1] <= 0) {
+    if (bootIndex < ds_list_size(bootMessages)) {
+        outputBuffer += bootMessages[|bootIndex] + "\n";
+        bootIndex++;
+        alarm[1] = bootDelay;
+    } else {
+        bootComplete = true;
+        outputBuffer = promptSymbol;
+        keyboard_string = "";
+        cursorPosition = 0;
+        inputBuffer = "";
+    }
+}
 
 
 if (keyboard_check_pressed(vk_enter)) {
@@ -13,7 +26,7 @@ if (keyboard_check_pressed(vk_enter)) {
 }
 
 // Handle backspace
-if (keyboard_check_pressed(vk_backspace) && cursorPosition > 0) {
+if (keyboard_check_pressed(vk_backspace)  && cursorPosition > 0) {
     inputBuffer = string_delete(inputBuffer, cursorPosition, 1);
     cursorPosition--;
 }
