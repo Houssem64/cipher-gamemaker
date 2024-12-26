@@ -1,8 +1,17 @@
+
+
+
+
+
 function processCommand(cmd) {
     var parts = string_split(cmd, " ");
     var command = parts[0];
     
     switch(command) {
+		case "ftp:test" :
+			outputBuffer = "connected"
+			global.activate_next_mission();
+			break
         case "ls":
             // Check if -l flag is present for long listing
             var use_long_format = false;
@@ -22,7 +31,7 @@ function processCommand(cmd) {
                 outputBuffer += "\nDocuments  Downloads  Pictures  Music";
             }
             break;
-            
+        
         case "cd":
             if (array_length(parts) > 1) {
                 var newDir = parts[1];
@@ -81,10 +90,38 @@ function processCommand(cmd) {
         case "pwd":
             outputBuffer += "\n" + currentDirectory;
             break;
-            
+			
+        case "test":
+			outputBuffer += "connected"
+			 
+			 break
+		case "neofetch" :
+    outputBuffer+="                   \n"
+    outputBuffer+="       ..,\n"
+    outputBuffer+="    ....  ..);\n"
+    outputBuffer+="  .,,      ,,);\n"
+    outputBuffer+=".,,          ,,.       kali@kali\n"
+    outputBuffer+=",,,          .,,       -----------\n"
+    outputBuffer+=" ,,.        ,,         OS: Kali Linux\n"
+    outputBuffer+="  ,,,    .,,           Host: Virtual Machine\n"
+    outputBuffer+="    ,,,,,,             Kernel: 6.5.0-kali3-amd64\n"
+    outputBuffer+=string("    ,,                 Uptime: " + string(global.hours) + " hour" +", " + string(global.minutes) + " min" +", "+ string(global.seconds)+  " s" + "\n");
+    outputBuffer+="     ,,                Packages: 4378 (dpkg)\n"
+    outputBuffer+="     ,,                Shell: zsh 5.9);\n"
+    outputBuffer+="      ,,               Resolution: 1920x1080\n"
+    outputBuffer+="     ,,                DE: Xfce 4.18\n"
+    outputBuffer+="      ,,               WM: Xfwm4\n"
+    outputBuffer+="      ,,               CPU: Intel i7-12700K\n"
+    outputBuffer+="      ,,               Memory: 2948MiB / 16384MiB\n"
+    outputBuffer+="												"
+			break;
+
         case "clear":
             outputBuffer = "";
             break;
+		case "exit":
+			 obj_terminal_controller.close_terminal_and_restore()
+			 break
             
         case "help":
             outputBuffer += "\nAvailable commands:\n";

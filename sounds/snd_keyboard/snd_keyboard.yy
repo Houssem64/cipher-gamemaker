@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_keyboard",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":3,
+  "conversionMode":1,
+  "duration":42.809273,
+  "name":"snd_keyboard",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_keyboard.ogg",
+  "type":1,
+  "volume":1.0,
+}
