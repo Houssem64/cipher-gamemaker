@@ -25,7 +25,7 @@ scrollbar_height = max(30, room_height * visible_ratio);
 
 // Calculate maximum scrollable distance
 max_scroll = max(0, total_height - room_height + 20);
-
+old_max = max_scroll
 // Calculate scrollbar position based on current scroll position
 scrollbar_y = (scroll_position / max_scroll) * (room_height - scrollbar_height);
 if (max_scroll == 0) scrollbar_y = 0; // Ensure scrollbar_y is 0 if there's no scrollable content
@@ -69,12 +69,6 @@ if (keyboard_check_pressed(vk_pageup)) {
 }
 if (keyboard_check_pressed(vk_pagedown)) {
     scroll_position = min(scroll_position + max_lines_visible * line_height, max_scroll);
-}
-if (keyboard_check_pressed(vk_up)) {
-    scroll_position = max(scroll_position - scroll_speed, 0);
-}
-if (keyboard_check_pressed(vk_down)) {
-    scroll_position = min(scroll_position + scroll_speed, max_scroll);
 }
 
 

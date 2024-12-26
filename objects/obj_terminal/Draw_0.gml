@@ -56,11 +56,20 @@ surface_free(surf);
 draw_set_color(c_dkgray);
 draw_rectangle(room_width - scrollbar_width, 0, room_width, room_height, false);
 
-// Draw scrollbar if content exceeds room height
 if (total_height > room_height) {
     var scrollbar_color = c_gray;
     if (scrollbar_hover) scrollbar_color = c_silver;
     if (scrollbar_dragging) scrollbar_color = c_white;
+
+    // Calculate scrollbar height and position
+    var visible_ratio = min(1, room_height / total_height);
+    var scrollbar_height = max(30, room_height * visible_ratio);
+    var scrollbar_y = (scroll_position / max_scroll) * (room_height - scrollbar_height);
+    
+    // Ensure scrollbar_y is within bounds
+    if (max_scroll == 0) {
+        scrollbar_y = 0; // No scrolling needed
+    }
 
     draw_set_color(scrollbar_color);
     draw_rectangle(

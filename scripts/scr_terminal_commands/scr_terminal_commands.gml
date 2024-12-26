@@ -118,6 +118,7 @@ function processCommand(cmd) {
 
         case "clear":
             outputBuffer = "";
+			obj_terminal.scroll_position = 0;
             break;
 		case "exit":
 			 obj_terminal_controller.close_terminal_and_restore()
