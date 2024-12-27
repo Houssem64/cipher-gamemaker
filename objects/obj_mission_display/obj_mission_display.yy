@@ -10,8 +10,8 @@
   "name":"obj_mission_display",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"missions",
+    "path":"folders/Objects/missions.yy",
   },
   "parentObjectId":null,
   "persistent":false,

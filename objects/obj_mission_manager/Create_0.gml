@@ -175,8 +175,12 @@ completion_display_time = 180; // 3 seconds at 60fps
 //initialize_mission_sequence();
 
 
-
-
+dialog = instance_create_layer(0, 0, "Instances", obj_dialog_manager);
+dialog.text_array = [
+    "Testing message 1",
+    "Testing message 2",
+    "Testing message 3"
+];
 
 
 
