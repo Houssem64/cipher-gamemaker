@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_promptkey",
+  "%Name":"obj_door",
   "eventList":[],
   "managed":true,
-  "name":"obj_promptkey",
+  "name":"obj_door",
   "overriddenProperties":[],
   "parent":{
-    "name":"keys",
-    "path":"folders/Objects/keys.yy",
+    "name":"Objects",
+    "path":"folders/Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_keyprompt",
-    "path":"sprites/spr_keyprompt/spr_keyprompt.yy",
+    "name":"spr_animated_door",
+    "path":"sprites/spr_animated_door/spr_animated_door.yy",
   },
   "spriteMaskId":null,
   "visible":true,

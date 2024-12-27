@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_promptkey",
+  "%Name":"obj_space",
   "eventList":[],
   "managed":true,
-  "name":"obj_promptkey",
+  "name":"obj_space",
   "overriddenProperties":[],
   "parent":{
     "name":"keys",
@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_keyprompt",
-    "path":"sprites/spr_keyprompt/spr_keyprompt.yy",
+    "name":"spr_space",
+    "path":"sprites/spr_space/spr_space.yy",
   },
   "spriteMaskId":null,
   "visible":true,

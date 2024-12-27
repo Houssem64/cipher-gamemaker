@@ -10,8 +10,8 @@
   "name":"obj_text_effect",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"dialog manager",
+    "path":"folders/Objects/dialog manager.yy",
   },
   "parentObjectId":null,
   "persistent":false,
