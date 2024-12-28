@@ -1,6 +1,16 @@
 //boot sequence 
-
+obj_mission_manager.update_mission_progress("basic_access", 0, 1);
 global.terminal_open = true
+
+global.ftp_connected = false;
+global.ftp_authenticated = false;
+global.ftp_username = "";
+global.ftp_ip = "";
+global.ftp_port = "";
+global.ftp_waiting_for_password = false;
+
+
+
 bootComplete = false;
 bootMessages = ds_list_create();
 ds_list_add(bootMessages,

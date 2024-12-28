@@ -1,8 +1,9 @@
 Rectanglex1 = x 
-Rectangley1 = y -10
+Rectangley1 = y +20
 Rectanglex2 = x + 15;
 Rectangley2 = y +50;
-popup_id = instance_create_layer(x, y+25, "Effects", obj_promptkey);
+
+popup_id = instance_create_layer(x, y+17, "Effects", obj_E_key);
 
 popup_id.visible = false;
 has_been_opened = false;
@@ -10,4 +11,7 @@ has_been_opened = false;
 image_speed = 0;
 image_index = 0;
 global.door_solid = true;  // Global variable to track door state
+global.openable = false
 mask_index = sprite_index;
+
+

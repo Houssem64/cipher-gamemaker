@@ -180,7 +180,7 @@ dialog.start_dialog(["First message", "Second message", "Third message"]);
 dialog.callback_object = id;
 
 dialog.callback_script = function() {
-    show_message("Dialog ended!");
+   
     // Put your code here
 };
 
@@ -191,33 +191,33 @@ function initialize_mission_sequence() {
     create_mission(
         "basic_access",
         "System Access",
-        "Gain basic access to the system",
-        ["Log into terminal", "Check system status"]
+        "Tutorial",
+        ["Log into terminal","Type 'neofetch' command", "Try Executing 'help' command","Connect to FTP server"]
     );
     
-    // Mission 2
+   // Mission 2
     create_mission(
-        "hack_firewall",
-        "Firewall Breach",
+        "ftp_access",
+        "Manage FTP server",
         "Break through the security firewall",
-        ["Locate firewall", "Find vulnerabilities", "Breach firewall"]
+       ["Locate firewall", "Find vulnerabilities", "Breach firewall"]
     );
     
-    // Mission 3
-    create_mission(
-        "get_credentials",
-        "Admin Access",
-        "Obtain administrator credentials",
-        ["Find user list", "Crack admin password", "Elevate privileges"]
-    );
+    //// Mission 3
+    //create_mission(
+    //    "get_credentials",
+    //    "Admin Access",
+    //    "Obtain administrator credentials",
+    //    ["Find user list", "Crack admin password", "Elevate privileges"]
+    //);
     
-    // Mission 4
-    create_mission(
-        "steal_data",
-        "Data Extraction",
-        "Download sensitive information",
-        ["Locate data", "Copy files", "Cover tracks"]
-    );
+    //// Mission 4
+    //create_mission(
+    //    "steal_data",
+    //    "Data Extraction",
+    //    "Download sensitive information",
+    //    ["Locate data", "Copy files", "Cover tracks"]
+    //);
     
     // Start first mission
      global.activate_next_mission(); 

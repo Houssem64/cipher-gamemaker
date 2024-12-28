@@ -48,6 +48,7 @@
     {"id":{"name":"obj_dark","path":"objects/obj_dark/obj_dark.yy",},},
     {"id":{"name":"obj_dialog_manager","path":"objects/obj_dialog_manager/obj_dialog_manager.yy",},},
     {"id":{"name":"obj_door","path":"objects/obj_door/obj_door.yy",},},
+    {"id":{"name":"obj_E_key","path":"objects/obj_E_key/obj_E_key.yy",},},
     {"id":{"name":"obj_interact","path":"objects/obj_interact/obj_interact.yy",},},
     {"id":{"name":"obj_mission_display","path":"objects/obj_mission_display/obj_mission_display.yy",},},
     {"id":{"name":"obj_mission_manager","path":"objects/obj_mission_manager/obj_mission_manager.yy",},},
@@ -60,6 +61,7 @@
     {"id":{"name":"obj_terminal","path":"objects/obj_terminal/obj_terminal.yy",},},
     {"id":{"name":"obj_text_effect","path":"objects/obj_text_effect/obj_text_effect.yy",},},
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
+    {"id":{"name":"Level1","path":"rooms/Level1/Level1.yy",},},
     {"id":{"name":"rm_terminal","path":"rooms/rm_terminal/rm_terminal.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"scr_close_terminal","path":"scripts/scr_close_terminal/scr_close_terminal.yy",},},
@@ -76,6 +78,7 @@
     {"id":{"name":"spr_dark","path":"sprites/spr_dark/spr_dark.yy",},},
     {"id":{"name":"spr_decor_2","path":"sprites/spr_decor_2/spr_decor_2.yy",},},
     {"id":{"name":"spr_decor_tiles","path":"sprites/spr_decor_tiles/spr_decor_tiles.yy",},},
+    {"id":{"name":"spr_E_key","path":"sprites/spr_E_key/spr_E_key.yy",},},
     {"id":{"name":"spr_house_tiles","path":"sprites/spr_house_tiles/spr_house_tiles.yy",},},
     {"id":{"name":"spr_keyprompt","path":"sprites/spr_keyprompt/spr_keyprompt.yy",},},
     {"id":{"name":"spr_Player_down","path":"sprites/spr_Player_down/spr_Player_down.yy",},},
@@ -99,6 +102,7 @@
   "RoomOrderNodes":[
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"roomId":{"name":"rm_terminal","path":"rooms/rm_terminal/rm_terminal.yy",},},
+    {"roomId":{"name":"Level1","path":"rooms/Level1/Level1.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
