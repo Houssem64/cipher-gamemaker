@@ -27,13 +27,14 @@ if xspeed == 0 and yspeed = 0 {
 	face = IDLE}
 sprite_index = sprite[face]
 //colission 
-if place_meeting(x+xspeed, y , obj_wall)
+// Check for walls and closed doors
+if place_meeting(x+xspeed, y, obj_wall) || (global.door_solid && place_meeting(x+xspeed, y, obj_door))
 {
-	xspeed = 0;
+    xspeed = 0;
 }
-if place_meeting(x,y+yspeed, obj_wall)
+if place_meeting(x, y+yspeed, obj_wall) || (global.door_solid && place_meeting(x, y+yspeed, obj_door))
 {
-yspeed = 0;
+    yspeed = 0;
 }
 
 
