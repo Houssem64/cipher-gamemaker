@@ -18,6 +18,13 @@ completion_message = "";
 completion_timer = 0;
 completion_display_time = 180; // 3 seconds at 60fps
 
+
+// Add this to a global script file or at the start of your mission manager
+
+
+
+
+
 //missions = ds_list_create();
 //active_missions = ds_list_create();
 //completed_missions = ds_list_create();
@@ -184,7 +191,6 @@ dialog.callback_script = function() {
     // Put your code here
 };
 
-
 // Create all missions in sequence
 function initialize_mission_sequence() {
     // Mission 1
@@ -192,17 +198,18 @@ function initialize_mission_sequence() {
         "basic_access",
         "System Access",
         "Tutorial",
-        ["Log into terminal","Type 'neofetch' command", "Try Executing 'help' command","Connect to FTP server"]
+        ["Log into terminal","Type 'neofetch' command", "Try Executing 'help' command","Connect to FTP server","mission complete"]
     );
     
    // Mission 2
-    create_mission(
-        "ftp_access",
-        "Manage FTP server",
-        "Break through the security firewall",
-       ["Locate firewall", "Find vulnerabilities", "Breach firewall"]
-    );
-    
+    //create_mission(
+    //    "ftp_access",
+    //    "Manage FTP server",
+    //    "Break through the security firewall",
+    //   ["Locate firewall", "Find vulnerabilities", "Breach firewall"]
+    //);
+	
+	
     //// Mission 3
     //create_mission(
     //    "get_credentials",
@@ -240,6 +247,9 @@ function create_mission(_id, _title, _description, _objectives) {
     return mission;
 }
 
+
+
+
 // Function to activate next mission in sequence
 global.activate_next_mission = function() {
     // Check if there are remaining missions
@@ -256,7 +266,7 @@ global.activate_next_mission = function() {
         // Activate the mission
         mission.is_active = true;
         mission.time_started = current_time;
-
+		
         // Update active missions list
         ds_list_clear(global.active_missions); // Clear previous active missions
         ds_list_add(global.active_missions, mission);
@@ -267,6 +277,7 @@ global.activate_next_mission = function() {
         // Debugging information
         show_debug_message("Activated Mission: " + mission.title);
         return true;
+		
     }
 
     // No more missions available
@@ -294,7 +305,15 @@ function update_mission_progress(_mission_id, _objective_index, _progress) {
     }
 }
 
-// Function to check mission completion
+function check_all_missions_complete() {
+    for (var i = 0; i < ds_list_size(global.missions); i++) {
+        var mission = global.missions[|i];
+        if (!mission.is_completed) {
+            return false;
+        }
+    }
+    return true;
+}
 function check_mission_completion(_mission) {
     if (_mission.is_completed) return true;
     
@@ -308,12 +327,23 @@ function check_mission_completion(_mission) {
     
     if (all_complete && !_mission.is_completed) {
         _mission.is_completed = true;
-        ds_list_add(completed_missions, _mission);
-        activate_next_mission(); // Start next mission automatically
+        ds_list_add(global.completed_missions, _mission);
+        
+        // Check if this was the last objective "mission complete"
+        if (_mission.objectives[array_length(_mission.objectives) - 1] == "mission complete") {
+            global.openable = true; // Make door openable
+            // Optionally show a completion dialog
+            var dialog = instance_create_layer(0, 0, "Instances", obj_dialog_manager);
+            dialog.start_dialog(["All missions complete! The door can now be opened."]);
+        } else {
+            // Start next mission automatically
+            global.activate_next_mission();
+        }
         return true;
     }
     return false;
 }
-
 // Initialize the mission sequence
 initialize_mission_sequence();
+
+

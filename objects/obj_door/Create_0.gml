@@ -14,4 +14,3 @@ global.door_solid = true;  // Global variable to track door state
 global.openable = false
 mask_index = sprite_index;
 
-

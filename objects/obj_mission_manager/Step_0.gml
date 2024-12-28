@@ -16,5 +16,36 @@ function handle_mission_notification() {
 }
 
 
+if(keyboard_check_pressed(vk_space)){
+	
+obj_mission_manager.update_mission_progress("basic_access", 0, 1);
+
+
+}
+if(keyboard_check_pressed(vk_numpad1)){
+	
+obj_mission_manager.update_mission_progress("basic_access", 1, 1);
+
+
+}
+if(keyboard_check_pressed(vk_numpad2)){
+	
+obj_mission_manager.update_mission_progress("basic_access", 2, 1);
+
+
+}
+if(keyboard_check_pressed(vk_numpad3)){
+	
+obj_mission_manager.update_mission_progress("basic_access", 3, 1);
+
+
+}
+if(keyboard_check_pressed(vk_numpad4)){
+	
+obj_mission_manager.update_mission_progress("basic_access", 4, 1);
+
+
+}
+
 
 

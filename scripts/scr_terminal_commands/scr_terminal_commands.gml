@@ -157,7 +157,7 @@ function processCommand(cmd) {
                 outputBuffer += "\nTrying to connect to " + ip_address + ":" + port + "...";
                 
                 // Simulate connection attempt
-                if (ip_address == "192.168.1.100") { // Example valid IP
+                if (ip_address == "10.10.10.1") { // Example valid IP
                     global.ftp_connected = true;
                     outputBuffer += "\nConnected to " + ip_address;
                     outputBuffer += "\nUsername: ";
@@ -263,7 +263,8 @@ function processFTPCommand(parts) {
                 
                 // If it's the flag file, trigger mission progress
                 if (filename == "flag.txt") {
-                    obj_mission_manager.update_mission_progress("basic_access", 4, 1);
+                    obj_mission_manager.update_mission_progress("basic_access", 3, 1);
+					
                 }
             } else {
                 outputBuffer += "\nUsage: get <filename>";
