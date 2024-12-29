@@ -1,7 +1,11 @@
-xspeed = 0;
-yspeed = 0;
+global.xspeed = 0;
+global.yspeed = 0;
+if (!variable_global_exists("door_solid")) {
+    global.door_solid = true;  // Fallback initialization
+}
 
-move_speed = 1;
+
+move_speed = 1.5;
 
 sprite[0] = spr_Player_right;
 sprite[1] = spr_Player_up

@@ -4,44 +4,48 @@ var  up_key = keyboard_check(vk_up);
 var  down_key = keyboard_check(vk_down);
 
 //movement direction
-xspeed = (right_key - left_key) * move_speed;
-yspeed = (down_key - up_key) * move_speed;
+global.xspeed = (right_key - left_key) * move_speed;
+global.yspeed = (down_key - up_key) * move_speed;
 //set sprite
 
 mask_index = sprite[DOWN]
-if yspeed == 0 {
-if xspeed > 0 {face = RIGHT };
-if xspeed < 0 {face = LEFT };
+if global.yspeed == 0 {
+if global.xspeed > 0 {face = RIGHT };
+if global.xspeed < 0 {face = LEFT };
 }
-if xspeed > 0 and face ==LEFT {face = RIGHT}
-if xspeed < 0 and face ==RIGHT {face = LEFT}
+if global.xspeed > 0 and face ==LEFT {face = RIGHT}
+if global.xspeed < 0 and face ==RIGHT {face = LEFT}
 
 
-if xspeed = 0 {
-if yspeed > 0 {face = DOWN };
-if yspeed < 0 {face = UP };
+if global.xspeed = 0 {
+if global.yspeed > 0 {face = DOWN };
+if global.yspeed < 0 {face = UP };
 }
-if yspeed > 0 and face ==UP {face = DOWN}
-if yspeed < 0 and face ==DOWN {face = UP}
-if xspeed == 0 and yspeed = 0 {
+if global.yspeed > 0 and face ==UP {face = DOWN}
+if global.yspeed < 0 and face ==DOWN {face = UP}
+if global.xspeed == 0 and global.yspeed = 0 {
 	face = IDLE}
 sprite_index = sprite[face]
 //colission 
+
+
 // Check for walls and closed doors
-if place_meeting(x+xspeed, y, obj_wall) || (global.door_solid && place_meeting(x+xspeed, y, obj_door))
+if (place_meeting(x+global.xspeed, y, obj_wall) || 
+    (variable_global_exists("door_solid") && global.door_solid && place_meeting(x+global.xspeed, y, obj_door)))
 {
-    xspeed = 0;
+    global.xspeed = 0;
 }
-if place_meeting(x, y+yspeed, obj_wall) || (global.door_solid && place_meeting(x, y+yspeed, obj_door))
+if (place_meeting(x, y+global.yspeed, obj_wall) || 
+    (variable_global_exists("door_solid") && global.door_solid && place_meeting(x, y+global.yspeed, obj_door)))
 {
-    yspeed = 0;
+    global.yspeed = 0;
 }
 
 
 
 //move the player
-x += xspeed; 
-y+= yspeed;
+x += global.xspeed; 
+y+= global.yspeed;
 
 //depth 
 depth = -bbox_bottom
