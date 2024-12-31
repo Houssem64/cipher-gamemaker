@@ -7,7 +7,7 @@ spotted_timer = 0;
 alarm_sound = snd_alarm; // Replace with your alarm sound asset
 exclamation_object = obj_exclamation;// Replace with your exclamation sprite asset
 // Animation properties
-
+is_active = true; // Camera is active by default
 exclamation_instance = noone; // Stores the instance of the exclamation point
 
 // Animation properties
