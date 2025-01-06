@@ -33,3 +33,6 @@ is_fullscreen = false;
 // Custom content
 window_title = ""; // Default title
 window_content = ""; // Default content
+
+depth = 0; // Initialize depth at 0
+

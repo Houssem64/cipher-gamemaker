@@ -16,7 +16,8 @@ if (keyboard_check_pressed(ord("C"))) {
     }
 }
 if (keyboard_check_pressed(ord("E"))) {
-    var email_window = instance_create_layer(100, 100, "Instances", obj_email_window);
+    var email_window = instance_create_depth(100, 100, next_depth, obj_email_window);
     email_window.window_title = "Email App";
     array_push(open_windows, email_window);
+    next_depth -= 1;
 }
