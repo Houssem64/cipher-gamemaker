@@ -113,11 +113,14 @@ var content_start_y = y + 30;
 var content_width = width - 20 - scrollbar_width;
 var content_height = height - 40;
 
-// Draw the terminal background
-draw_set_color(c_black);
-draw_rectangle(content_start_x, content_start_y, x + width - 10, y + height - 10, false);
+var surf = surface_create(content_width, content_height);
+surface_set_target(surf);
 
-// Prepare the text to display
+// Clear the surface
+draw_clear_alpha(c_black, 1);
+
+// Draw terminal text on surface
+draw_set_color(c_white);
 var displayText = outputBuffer;
 if (bootComplete) {
     displayText = outputBuffer + inputBuffer;
@@ -125,28 +128,47 @@ if (bootComplete) {
         displayText = string_insert("|", displayText, string_length(outputBuffer) + cursorPosition + 1);
     }
 }
+draw_text_ext(0, -scroll_position, displayText, -1, content_width);
+
+// Reset surface target
+surface_reset_target();
+
+
+// Draw the terminal background
+draw_set_color(c_black);
+draw_rectangle(content_start_x, content_start_y, x + width - 10, y + height - 10, false);
+
+//// Prepare the text to display
+//var displayText = outputBuffer;
+//if (bootComplete) {
+//    displayText = outputBuffer + inputBuffer;
+//    if (cursorBlink) {
+//        displayText = string_insert("|", displayText, string_length(outputBuffer) + cursorPosition + 1);
+//    }
+//}
 
 // Draw the text, offset by the scroll position
-draw_set_color(c_white);
-draw_text_ext(content_start_x, content_start_y - scroll_position, displayText, -1, content_width);
+
+draw_surface(surf, content_start_x, content_start_y);
+
+// Clean up surface
+surface_free(surf);
+
+
+
+//draw_set_color(c_white);
+//draw_text_ext(content_start_x, content_start_y - scroll_position, displayText, -1, content_width);
 
 // Draw the scrollbar background
 draw_set_color(c_dkgray);
 draw_rectangle(x + width - scrollbar_width, content_start_y, x + width, y + height - 10, false);
 
 // Draw the scrollbar if needed
-if (total_height > content_height) {
+if (total_height > height) {
     var scrollbar_color = c_gray;
     if (scrollbar_hover) scrollbar_color = c_silver;
     if (scrollbar_dragging) scrollbar_color = c_white;
-
-    // Calculate scrollbar height and position
-    var visible_ratio = min(1, content_height / total_height);
-    var scrollbar_height = max(30, content_height * visible_ratio);
-    var scrollbar_y = (scroll_position / max_scroll) * (content_height - scrollbar_height);
-    if (max_scroll == 0) scrollbar_y = 0; // Ensure scrollbar_y is 0 if there's no scrollable content
-
-    // Draw the scrollbar
+    
     draw_set_color(scrollbar_color);
     draw_rectangle(
         x + width - scrollbar_width + 2,
@@ -156,6 +178,7 @@ if (total_height > content_height) {
         false
     );
 }
+
 
 // Reset to the default font and text size
 draw_set_font(default_font);

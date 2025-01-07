@@ -54,8 +54,14 @@ global.terminal_start_time = get_timer();
 scroll_position = 0;
 line_height = 20;
 scroll_speed = line_height;
+
 max_lines_visible = floor((height - 20) / line_height);
+
 scrollbar_width = 20;
+scroll_position = 0;
+scrollbar_height = 0;
+scrollbar_y = 0;
+
 scrollbar_dragging = false;
 scrollbar_hover = false;
 drag_offset = 0;

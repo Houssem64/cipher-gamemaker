@@ -12,36 +12,53 @@ global.hours = floor(elapsed_seconds / 3600);
 global.minutes = floor((elapsed_seconds % 3600) / 60);
 global.seconds = elapsed_seconds;
 
-// Scrollbar logic
 
-// Calculate total height of text with current font
-total_height = string_height_ext(outputBuffer + inputBuffer, -1, width - 20 - scrollbar_width);
+// Calculate text dimensions
+var line_height = string_height("M");  // Height of a single line
+var display_text = outputBuffer + (bootComplete ? inputBuffer : "");
+var num_lines = string_count("\n", display_text) + 1;
 
-// Determine content height (maximum of total height or window height)
-content_height = height //max(total_height, height);
+// Calculate total content height
+total_height = num_lines * line_height;
 
-// Calculate visible ratio (how much of the content is visible)
-visible_ratio = min(1, height / content_height);
+// Calculate visible area
+var visible_height = height - 40;  // Subtract padding/margins
+max_lines_visible = floor(visible_height / line_height);
 
-// Calculate scrollbar height based on visible ratio
-scrollbar_height = max(30, height * visible_ratio);
+// Calculate maximum scroll
+max_scroll = max(0, total_height - visible_height);
 
-// Calculate maximum scrollable distance
-max_scroll = max(0, total_height - height + 20);
+// Ensure scroll position stays within bounds
+scroll_position = clamp(scroll_position, 0, max_scroll);
 
-// Calculate scrollbar position based on current scroll position
-scrollbar_y = (scroll_position / max_scroll) * (height - scrollbar_height);
-if (max_scroll == 0) scrollbar_y = 0; // Ensure scrollbar_y is 0 if there's no scrollable content
+// Scrollbar calculations
+var min_scrollbar_height = 30;  // Minimum scrollbar height in pixels
+if (total_height > visible_height) {
+    // Calculate scrollbar proportions
+    var visible_ratio = visible_height / total_height;
+    scrollbar_height = max(min_scrollbar_height, visible_height * visible_ratio);
+    
+    // Calculate scrollbar position
+    var available_scroll_space = visible_height - scrollbar_height;
+    scrollbar_y = (scroll_position / max_scroll) * available_scroll_space;
+} else {
+    // Content fits within view
+    scrollbar_height = visible_height;
+    scrollbar_y = 0;
+}
 
 // Mouse interaction with scrollbar
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
-var scrollbar_area = (mx >= x + width - scrollbar_width && mx <= x + width);
+var scrollbar_x = x + width - scrollbar_width;
+var scrollbar_area = (mx >= scrollbar_x && mx <= x + width);
 
-if (scrollbar_area) {
+// Handle scrollbar hover and dragging
+if (scrollbar_area && my >= y + 30 && my <= y + height - 10) {
     scrollbar_hover = true;
     if (mouse_check_button_pressed(mb_left)) {
         scrollbar_dragging = true;
+        drag_offset = my - (y + 30 + scrollbar_y);
     }
 } else {
     scrollbar_hover = false;
@@ -51,18 +68,21 @@ if (mouse_check_button_released(mb_left)) {
     scrollbar_dragging = false;
 }
 
+// Update scroll position when dragging
 if (scrollbar_dragging && max_scroll > 0) {
-    var new_y = clamp(my - y - scrollbar_height / 2, 0, height - scrollbar_height);
-    scroll_position = (new_y / (height - scrollbar_height)) * max_scroll;
+    var available_scroll_space = visible_height - scrollbar_height;
+    var mouse_y_relative = my - (y + 30) - drag_offset;
+    var scroll_ratio = clamp(mouse_y_relative / available_scroll_space, 0, 1);
+    scroll_position = scroll_ratio * max_scroll;
     scroll_position = clamp(scroll_position, 0, max_scroll);
 }
 
 // Mouse wheel scrolling
 if (mouse_wheel_up()) {
-    scroll_position = max(scroll_position - scroll_speed, 0);
+    scroll_position = max(0, scroll_position - line_height);
 }
 if (mouse_wheel_down()) {
-    scroll_position = min(scroll_position + scroll_speed, max_scroll);
+    scroll_position = min(max_scroll, scroll_position + line_height);
 }
 
 // Keyboard scrolling
