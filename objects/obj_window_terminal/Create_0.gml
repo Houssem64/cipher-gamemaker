@@ -1,7 +1,5 @@
-//boot sequence 
-//obj_mission_manager.update_mission_progress("basic_access", 0, 1);
-global.terminal_open = true
-
+// Initialize global variables
+global.terminal_open = true;
 global.ftp_connected = false;
 global.ftp_authenticated = false;
 global.ftp_username = "";
@@ -9,8 +7,14 @@ global.ftp_ip = "";
 global.ftp_port = "";
 global.ftp_waiting_for_password = false;
 
+// Define the terminal window position and size
+window_x = 100; // X position of the window
+window_y = 100; // Y position of the window
+window_width = 600; // Width of the window
+window_height = 400; // Height of the window
 
 
+// Boot sequence
 bootComplete = false;
 bootMessages = ds_list_create();
 ds_list_add(bootMessages,
@@ -42,8 +46,7 @@ alarm[1] = 1; // Start boot sequence
 
 global.terminal_start_time = get_timer();
 
-
-//scrollbar: 
+// Scrollbar initialization
 scroll_position = 0;
 line_height = 20;
 scroll_speed = line_height;
@@ -53,8 +56,7 @@ scrollbar_dragging = false;
 scrollbar_hover = false;
 drag_offset = 0;
 
-
-
+// Terminal input/output initialization
 currentDirectory = "/home/user";
 commandHistory = ds_list_create();
 historyPosition = -1;
@@ -71,4 +73,4 @@ keyboard_string = "";
 terminalWidth = 50;  // Characters per line
 terminalHeight = 20; // Number of lines
 
-font = font_add("cour.ttf",20, false, false, 32, 128);
+font = font_add("cour.ttf", 20, false, false, 32, 128);

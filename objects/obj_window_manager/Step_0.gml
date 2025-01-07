@@ -21,3 +21,7 @@ if (keyboard_check_pressed(ord("E"))) {
     array_push(open_windows, email_window);
     next_depth -= 1;
 }
+
+
+
+
