@@ -120,7 +120,8 @@ surface_set_target(surf);
 draw_clear_alpha(c_black, 1);
 
 // Draw terminal text on surface
-draw_set_color(c_white);
+draw_set_color(c_lime)
+
 var displayText = outputBuffer;
 if (bootComplete) {
     displayText = outputBuffer + inputBuffer;

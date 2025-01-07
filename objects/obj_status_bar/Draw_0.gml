@@ -1,6 +1,8 @@
 // Draw Event of obj_status_bar
+var default_font = draw_get_font()
+draw_set_font(icons);
 draw_set_color(color_background);
-draw_rectangle(0, 0, room_width, 30, false); // Status bar background
+draw_rectangle(0, 0, room_width, 35, false); // Status bar background
 
 // Draw app icons
 // Email icon (simple envelope shape)
@@ -36,3 +38,4 @@ draw_set_color(color_highlight);
 draw_text(20, 5, time); // Highlight time
 draw_set_color(color_warning);
 draw_text(room_width - string_width(stats) - 20, 5, "CPU: " + cpu_usage); // Highlight CPU usage
+draw_set_font(default_font)
