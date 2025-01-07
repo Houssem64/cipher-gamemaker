@@ -23,7 +23,7 @@ function close_terminal_and_restore() {
         layer_set_visible(new_layers[i], true);
     }
 
-    with (obj_terminal) {
+    with (obj_terminal_old) {
         persistent = false;
         instance_destroy();
     }

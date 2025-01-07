@@ -14,9 +14,12 @@
   "overriddenProperties":[],
   "parent":{
     "name":"terminal",
-    "path":"folders/Objects/terminal.yy",
+    "path":"folders/Objects/computer system/terminal.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_window",
+    "path":"objects/obj_window/obj_window.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

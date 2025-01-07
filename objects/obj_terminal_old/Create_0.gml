@@ -1,11 +1,4 @@
 //boot sequence 
-event_inherited();
-
-width = 800;
-height = 500;
-min_width = 600;
-min_height = 300;
-window_title = "Terminal"
 //obj_mission_manager.update_mission_progress("basic_access", 0, 1);
 global.terminal_open = true
 
@@ -54,7 +47,7 @@ global.terminal_start_time = get_timer();
 scroll_position = 0;
 line_height = 20;
 scroll_speed = line_height;
-max_lines_visible = floor((height - 20) / line_height);
+max_lines_visible = floor((room_height - 20) / line_height);
 scrollbar_width = 20;
 scrollbar_dragging = false;
 scrollbar_hover = false;
@@ -78,4 +71,4 @@ keyboard_string = "";
 terminalWidth = 50;  // Characters per line
 terminalHeight = 20; // Number of lines
 
-
+font = font_add("cour.ttf",20, false, false, 32, 128);

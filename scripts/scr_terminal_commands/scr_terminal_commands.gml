@@ -128,16 +128,16 @@ function processCommand(cmd) {
             outputBuffer += "      ,,               CPU: Intel i7-12700K\n";
             outputBuffer += "      ,,               Memory: 2948MiB / 16384MiB\n";
             outputBuffer += "                                                ";
-            obj_mission_manager.update_mission_progress("basic_access", 1, 1);
+            //obj_mission_manager.update_mission_progress("basic_access", 1, 1);
             break;
 
         case "clear":
             outputBuffer = "";
-            obj_terminal.scroll_position = 0;
+           
             break;
             
         case "exit":
-            obj_terminal_controller.close_terminal_and_restore();
+            instance_destroy()
             break;
 
         case "ftp":
@@ -181,7 +181,7 @@ function processCommand(cmd) {
             outputBuffer += "help - Show this help\n";
             outputBuffer += "exit - Exit Terminal\n";
             outputBuffer += "ftp <ip_address> [port] - Connect to FTP server\n";
-            obj_mission_manager.update_mission_progress("basic_access", 2, 1);
+            //obj_mission_manager.update_mission_progress("basic_access", 2, 1);
             break;
             
         default:
@@ -263,7 +263,7 @@ function processFTPCommand(parts) {
                 
                 // If it's the flag file, trigger mission progress
                 if (filename == "flag.txt") {
-                    obj_mission_manager.update_mission_progress("basic_access", 3, 1);
+                    //obj_mission_manager.update_mission_progress("basic_access", 3, 1);
 					
                 }
             } else {

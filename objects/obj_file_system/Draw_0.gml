@@ -39,37 +39,68 @@
 //    scroll_position = min(scroll_position + 20, total_height - file_system_height);
 //}
 
-
-/// @description Draw Event
 event_inherited(); // Draw parent window elements first
 
-// Draw file list area
+// Draw address bar
 draw_set_color(c_white);
-draw_rectangle(x + 5, y + 25, x + width - 5, y + height - 5, false);
+draw_rectangle(x + 5, y + 25, x + width - 5, y + 45, false);
+draw_set_color(c_black);
+draw_rectangle(x + 5, y + 25, x + width - 5, y + 45, true);
+
+// Draw navigation buttons
+draw_set_color(c_gray);
+draw_rectangle(x + 5, y + 25, x + 25, y + 45, false); // Back
+draw_rectangle(x + 30, y + 25, x + 50, y + 45, false); // Forward
+draw_set_color(c_black);
+draw_text(x + 10, y + 30, "←");
+draw_text(x + 35, y + 30, "→");
+
+// Draw address bar content
+draw_set_color(c_black);
+if (typing_path) {
+    draw_text(x + 60, y + 30, temp_path + "|");
+} else {
+    draw_text(x + 60, y + 30, current_path);
+}
+
+// Draw column headers
+var _header_y = y + 50;
+draw_line(x, _header_y, x + width, _header_y);
+draw_text(x + 25, _header_y, "Name");
+draw_text(x + 25 + name_column_width, _header_y, "Size");
+draw_text(x + 25 + name_column_width + size_column_width, _header_y, "Date Modified");
 
 // Draw files and directories
-draw_set_color(c_black);
+draw_set_color(c_white);
+draw_rectangle(x + 5, y + 70, x + width - 5, y + height - 5, false);
 
-
-var _y_pos = y + 30;
+var _y_pos = y + 75;
 var _items_drawn = 0;
 
 for (var i = scroll_offset; i < ds_list_size(file_list) && _items_drawn < max_items_visible; i++) {
     var _item = ds_list_find_value(file_list, i);
-    var _is_dir = directory_exists(current_path + _item);
+    var _details = ds_map_find_value(file_details, _item);
+    var _detail_array = string_split(_details, "|");
+    var _is_dir = _detail_array[0] == "DIR";
     
     // Highlight selected item
     if (_item == selected_file) {
         draw_set_color(c_blue);
-        draw_rectangle(x + 5, _y_pos, x + width - 5, _y_pos + 18, false);
+        draw_rectangle(x + 5, _y_pos - 2, x + width - 5, _y_pos + 18, false);
         draw_set_color(c_white);
     } else {
         draw_set_color(c_black);
     }
     
-
-    // Draw filename
-    draw_text(x + 30, _y_pos, _item);
+    // Draw folder/file icon and name
+    draw_text(x + 10, _y_pos, _is_dir ? "📁" : "📄");
+    draw_text(x + 25, _y_pos, _item);
+    
+    // Draw size and date
+    if (!_is_dir || _item == "..") {
+        draw_text(x + 25 + name_column_width, _y_pos, _is_dir ? "" : FormatFileSize(real(_detail_array[2])));
+        draw_text(x + 25 + name_column_width + size_column_width, _y_pos, _detail_array[1]);
+    }
     
     _y_pos += 20;
     _items_drawn++;

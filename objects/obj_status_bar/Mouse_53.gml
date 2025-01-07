@@ -21,7 +21,7 @@ if (mouse_x >= terminal_icon_x && mouse_x <= terminal_icon_x + icon_size &&
         room_width/2 - 400, // center horizontally
         room_height/2 - 300, // center vertically
         obj_window_manager.next_depth, 
-        obj_terminal_2
+        obj_terminal
     );
     array_push(obj_window_manager.open_windows, terminal_window);
     obj_window_manager.next_depth -= 1;

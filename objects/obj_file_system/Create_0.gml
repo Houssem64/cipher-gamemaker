@@ -20,23 +20,41 @@
 
 //// Load initial directory contents
 //load_directory(current_directory);
-
-
 event_inherited(); // Inherit from obj_window
 
 // Window properties
-window_title = "File System";
-width = 400;
-height = 300;
-min_width = 200;
-min_height = 150;
+window_title = "File Explorer";
+width = 600;
+height = 400;
+min_width = 300;
+min_height = 200;
 
-// File system specific variables
+// File explorer specific variables
 current_path = working_directory;
+current_path = string_replace_all(working_directory, "\\", "/");
+if (string_char_at(current_path, string_length(current_path)) != "/") {
+    current_path += "/";
+}
 selected_file = "";
 scroll_offset = 0;
-max_items_visible = floor((height - 60) / 20); // Account for header and padding
+max_items_visible = floor((height - 80) / 20); // Account for header and address bar
+
+// Navigation history
+nav_history = ds_list_create();
+nav_position = -1;
+ds_list_add(nav_history, current_path);
+nav_position = 0;
+
+// Column widths
+name_column_width = 250;
+size_column_width = 100;
+date_column_width = 150;
+
+// Address bar variables
+typing_path = false;
+temp_path = "";
 
 // File system content
 file_list = ds_list_create();
+file_details = ds_map_create(); // Stores size and date for each file
 UpdateFileList();
