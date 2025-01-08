@@ -4,9 +4,9 @@ if(!has_been_interacted) {
         
         if(keyboard_check_pressed(ord("E"))) {
             has_been_interacted = true;
-            terminal_open = true;
+            computer_open = true;
 			global.previous_room = Room1;
-            room_goto(rm_terminal);
+            room_goto(rm_computer);
         }
     } else {
         popup_id.visible = false;

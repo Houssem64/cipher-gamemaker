@@ -9,6 +9,7 @@ text_array = [];
 text_array_pos =0;
 text_finished = false;
 padding = 20;
+
 box_width = display_get_gui_width() * 0.7;
 box_height = display_get_gui_height() * 0.2;
 box_x = (display_get_gui_width() - box_width) / 2;

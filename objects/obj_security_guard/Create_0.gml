@@ -12,7 +12,7 @@
 
 // Guard properties
 path = path_guard; // Assign a predefined path (create this in the path editor)
-speed = 1; // Movement speed along the path
+speed = 0.7; // Movement speed along the path
 detection_range = 100; // Length of the detection cone
 detection_angle = 45; // Angle of the detection cone (in degrees)
 detection_timer = 0; // Tracks how long the player has been spotted

@@ -1,4 +1,4 @@
-terminal_open = false; // Track if terminal is open
+computer_open = false; // Track if terminal is open
 Rectanglex1 = x - 30;
 Rectangley1 = y - 30;
 Rectanglex2 = x + 30;

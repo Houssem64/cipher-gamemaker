@@ -14,7 +14,7 @@ switch (state) {
             abs(angle_difference(direction, angle_to_player)) <= detection_angle / 2) {
             // Player is in the detection cone
             detection_timer++;
-            if (detection_timer >= 60) { // 1 second (60 frames)
+            if (detection_timer >= 30) { // 1 second (60 frames)
                 state = GuardState.ALERT; // Switch to alert state
                 detection_timer = 0;
             }
@@ -29,8 +29,7 @@ switch (state) {
     direction += 5; // Rotate slowly (look around)
 
     // Check if the player is still in sight
-    var player = obj_Player; // Replace with your player object
-    var angle_to_player = point_direction(x, y, player.x, player.y);
+  
 
     if (point_distance(x, y, player.x, player.y) <= detection_range &&
         abs(angle_difference(direction, angle_to_player)) <= detection_angle / 2) {
@@ -49,7 +48,7 @@ switch (state) {
 
   case GuardState.CHASING:
     // Chase the player
-    var player = obj_Player; // Replace with your player object
+ 
     direction = point_direction(x, y, player.x, player.y);
     speed = 4; // Move faster when chasing
     x += lengthdir_x(speed, direction);
