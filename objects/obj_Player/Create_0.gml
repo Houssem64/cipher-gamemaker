@@ -5,7 +5,7 @@ if (!variable_global_exists("door_solid")) {
 }
 
 
-move_speed = 1.5;
+move_speed = 1;
 
 sprite[0] = spr_Player_right;
 sprite[1] = spr_Player_up

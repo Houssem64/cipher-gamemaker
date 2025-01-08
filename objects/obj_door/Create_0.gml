@@ -12,5 +12,6 @@ image_speed = 0;
 image_index = 0;
 global.door_solid = true;  // Global variable to track door state
 global.openable = false
+show_debug_message(global.openable)
 mask_index = sprite_index;
 

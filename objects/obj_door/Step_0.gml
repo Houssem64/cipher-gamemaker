@@ -11,7 +11,7 @@ if (!has_been_opened) {
     global.door_solid = true;  // Door is solid while closed
 
     // Check if the player presses "E" and the door is not openable
-    if (!global.openable && keyboard_check_pressed(ord("E"))) {
+    if (global.door_solid && keyboard_check_pressed(ord("E"))) {
         var dialog = instance_create_layer(0, 0, "Instances", obj_dialog_manager);
         dialog.start_dialog(["Complete all missions to unlock the door."]);
         dialog.callback_object = id;

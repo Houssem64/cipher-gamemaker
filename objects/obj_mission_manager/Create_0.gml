@@ -182,14 +182,14 @@ completion_display_time = 180; // 3 seconds at 60fps
 //initialize_mission_sequence();
 
 
-dialog = instance_create_layer(0, 0, "Instances", obj_dialog_manager);
-dialog.start_dialog(["First message", "Second message", "Third message"]);
-dialog.callback_object = id;
+//dialog = instance_create_layer(0, 0, "Instances", obj_dialog_manager);
+//dialog.start_dialog(["First message", "Second message", "Third message"]);
+//dialog.callback_object = id;
 
-dialog.callback_script = function() {
+//dialog.callback_script = function() {
    
-    // Put your code here
-};
+//    // Put your code here
+//};
 
 // Create all missions in sequence
 function initialize_mission_sequence() {

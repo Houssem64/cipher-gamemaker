@@ -33,7 +33,7 @@ function start_dialog(dialog_array) {
     text_array = dialog_array;
     text_array_pos = 0; 
     text_finished = false;
-	
+	 obj_Player.move_speed=0
    
     load_next_text();     // Load first message
 }
@@ -61,6 +61,7 @@ function load_next_text() {
             }
         }
         instance_destroy();
+		 obj_Player.move_speed=1
     }
 }
 

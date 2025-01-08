@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shdBktGlitch",
+  "name":"shdBktGlitch",
+  "parent":{
+    "name":"bktShader",
+    "path":"folders/Shaders/bktShader.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}
