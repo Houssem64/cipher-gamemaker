@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"snd_alarm",
+  "%Name":"snd_interruptor",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,8 +9,8 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":6.0,
-  "name":"snd_alarm",
+  "duration":0.6,
+  "name":"snd_interruptor",
   "parent":{
     "name":"Sounds",
     "path":"folders/Sounds.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_alarm.wav",
+  "soundFile":"snd_interruptor.mp3",
   "type":0,
-  "volume":0.16,
+  "volume":1.0,
 }

@@ -1,105 +1,115 @@
-// State machine logic
+//if (!instance_exists(obj_Player)) exit;
+
+//var player = obj_Player;
+//var angle_to_player = point_direction(x, y, player.x, player.y);
+//var distance_to_player = point_distance(x, y, player.x, player.y);
+//var can_see_player = false;
+
+//// Line of sight check
+//if (distance_to_player <= detection_range &&
+//    abs(angle_difference(direction, angle_to_player)) <= detection_angle / 2) {
+//    // Check for walls blocking view
+//    var wall_check = collision_line(x, y, player.x, player.y, obj_wall, false, true);
+//    can_see_player = (wall_check == noone);
+//}
+
+//switch (state) {
+//    case GuardState.PATROLLING:
+//        // Maintain patrol speed
+//        path_speed = patrol_speed;
+        
+//        // Check for player detection
+//        if (can_see_player) {
+//            detection_timer++;
+//            if (detection_timer >= room_speed/2) { // Half second detection time
+//                state = GuardState.ALERT;
+//                path_end();
+//                detection_timer = 0;
+//                audio_play_sound(alarm_sound, 1, false);
+//            }
+//        } else {
+//            detection_timer = 0;
+//        }
+//        break;
+
+//    case GuardState.ALERT:
+//        // Rotate to scan the area
+//        //direction += alert_rotation_speed;
+        
+//        if (can_see_player) {
+//            detection_timer++;
+//            if (detection_timer >= room_speed/3) {
+             
+//                detection_timer = 0;
+//            }
+//        } else {
+//            detection_timer++;
+//            if (detection_timer >= room_speed * 2) { // Return to patrol after 2 seconds
+//                state = GuardState.PATROLLING;
+//                path_start(path, patrol_speed, path_action_restart, true);
+//                detection_timer = 0;
+//            }
+//        }
+//        break;
+
+  
+//}
+
+
+if (!instance_exists(obj_Player)) exit;
+
+var player = obj_Player;
+var angle_to_player = point_direction(x, y, player.x, player.y);
+var distance_to_player = point_distance(x, y, player.x, player.y);
+var can_see_player = false;
+
+// Line of sight check
+if (distance_to_player <= detection_range &&
+    abs(angle_difference(direction, angle_to_player)) <= detection_angle / 2) {
+    // Check for walls blocking view
+    var wall_check = collision_line(x, y, player.x, player.y, obj_wall, false, true);
+    can_see_player = (wall_check == noone);
+}
+
 switch (state) {
     case GuardState.PATROLLING:
-        // Patrol along the path
-        if (path_position == 1) {
-            path_start(path, speed, path_action_continue, true); // Restart the path
-        }
-
-        // Check for the player
-        var player =  obj_Player; // Replace with your player object
-        var angle_to_player = point_direction(x, y, player.x, player.y);
-
-        if (point_distance(x, y, player.x, player.y) <= detection_range &&
-            abs(angle_difference(direction, angle_to_player)) <= detection_angle / 2) {
-            // Player is in the detection cone
+        // Maintain patrol speed
+        path_speed = patrol_speed;
+        
+        // Check for player detection
+        if (can_see_player) {
             detection_timer++;
-            if (detection_timer >= 30) { // 1 second (60 frames)
-                state = GuardState.ALERT; // Switch to alert state
+            if (detection_timer >= room_speed / 2) { // Half second detection time
+                state = GuardState.ALERT;
+                path_end();
                 detection_timer = 0;
+                audio_play_sound(alarm_sound, 1, false); // Sound the alarm
             }
         } else {
             detection_timer = 0;
         }
         break;
 
-   case GuardState.ALERT:
-    // Stop moving and look around
-    path_end(); // Stop following the path
-    direction += 5; // Rotate slowly (look around)
+    case GuardState.ALERT:
+        // Rotate to face the player
+        direction = angle_to_player;
 
-    // Check if the player is still in sight
-  
-
-    if (point_distance(x, y, player.x, player.y) <= detection_range &&
-        abs(angle_difference(direction, angle_to_player)) <= detection_angle / 2) {
-        // Player is still in sight
-        detection_timer++;
-        if (detection_timer >= 30) { // 0.5 seconds (30 frames)
-            state = GuardState.CHASING; // Switch to chasing state
-            detection_timer = 0;
+        if (can_see_player) {
+            detection_timer++;
+            if (detection_timer >= room_speed / 3) { // Shoot every 1/3 second
+                // Create a projectile aimed at the player
+                var projectile = instance_create_layer(x, y, "Projectiles", obj_projectile);
+                projectile.direction = angle_to_player;
+                projectile.speed = projectile_speed;
+                detection_timer = 0;
+            }
+        } else {
+            detection_timer++;
+            if (detection_timer >= room_speed * 2) { // Return to patrol after 2 seconds
+                state = GuardState.PATROLLING;
+                path_start(path, patrol_speed, path_action_restart, true);
+                detection_timer = 0;
+            }
         }
-    } else {
-        // Player is no longer in sight
-        state = GuardState.PATROLLING; // Return to patrolling state
-        path_start(path, speed, path_action_restart, true); // Resume patrolling
-    }
-    break;
-
-  case GuardState.CHASING:
-    // Chase the player
- 
-    direction = point_direction(x, y, player.x, player.y);
-    speed = 4; // Move faster when chasing
-    x += lengthdir_x(speed, direction);
-    y += lengthdir_y(speed, direction);
-
-    // Check if the player is caught
-    if (place_meeting(x, y, obj_player)) {
-        // Player is caught
-        show_debug_message("Player caught!");
-        // Add logic for what happens when the player is caught (e.g., game over)
-    }
-
-    // Optional: Return to patrolling if the player escapes
-    if (point_distance(x, y, player.x, player.y) > detection_range * 2) {
-        state = GuardState.PATROLLING; // Return to patrolling state
-        path_start(path, speed, path_action_restart, true); // Resume patrolling
-    }
-    break;
+        break;
 }
-
-
-
-
-
-
-
-
-
-
-//// Calculate the angle to the player
-//var player = obj_Player; // Replace with your player object
-//var angle_to_player = point_direction(x, y, player.x, player.y);
-
-//// Check if the player is within the detection range and angle
-//if (point_distance(x, y, player.x, player.y) <= detection_range &&
-//    abs(angle_difference(direction, angle_to_player)) <= detection_angle / 2) {
-//    // Player is in the detection cone
-//    if (!player_spotted) {
-//        player_spotted = true;
-//        detection_timer = 0;
-//    } else {
-//        detection_timer++;
-//        if (detection_timer >= 60) { // 1 second (60 frames)
-//            // Trigger the alarm
-//            if (!audio_is_playing(alarm_sound)) {
-//                audio_play_sound(alarm_sound, 0, false);
-//            }
-//        }
-//    }
-//} else {
-//    // Player is not in the detection cone
-//    player_spotted = false;
-//    detection_timer = 0;
-//}

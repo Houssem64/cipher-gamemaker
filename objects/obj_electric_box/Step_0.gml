@@ -13,6 +13,9 @@ var y2 = y +12
      popup_id.visible = false;
         is_interacted = true;
         camera_object.is_active = false; // Disable the camera
+		audio_play_sound(snd_interruptor,0,false)
+		camera_object.image_speed = 0; // Stop the animation
+		camera_object.image_index = 0; // Set the frame to frame 1 (index 0)
 		
 		 
     }

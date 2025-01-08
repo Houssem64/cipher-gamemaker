@@ -7,7 +7,7 @@ var  down_key = keyboard_check(vk_down);
 
 // Check if the player is caught by any guard
 var guard = instance_place(x, y, obj_security_guard);
-if (guard != noone && guard.state == GuardState.CHASING) {
+if (guard != noone && guard.state == GuardState.ALERT) {
     // Player is caught
     show_debug_message("Player caught!");
     // Add logic for what happens when the player is caught (e.g., game over)

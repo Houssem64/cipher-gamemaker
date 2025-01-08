@@ -1,31 +1,25 @@
-//// Guard properties
-//path = path_guard; // Assign a predefined path (create this in the path editor)
-//speed = 1; // Movement speed along the path
-//detection_range = 100; // Length of the detection cone
-//detection_angle = 45; // Angle of the detection cone (in degrees)
-//detection_timer = 0; // Tracks how long the player has been spotted
-//player_spotted = false; // Tracks if the player is currently spotted
-//alarm_sound = snd_alarm; // Sound to play when the player is spotted
-
-//// Start the guard on the path
-//path_start(path, speed, path_action_continue, true);
-
 // Guard properties
-path = path_guard; // Assign a predefined path (create this in the path editor)
-speed = 0.7; // Movement speed along the path
-detection_range = 100; // Length of the detection cone
-detection_angle = 45; // Angle of the detection cone (in degrees)
-detection_timer = 0; // Tracks how long the player has been spotted
-alarm_sound = snd_alarm; // Sound to play when the player is spotted
+path = path_guard;
+patrol_speed = 0.7;
+chase_speed = patrol_speed * 2; // Double speed when chasing
+detection_range = 100;
+detection_angle = 45;
+detection_timer = 0;
+alarm_sound = snd_alarm;
 
+move_speed = 2; // Or whatever speed value you want
+move_direction = 0; // Make sure this is initialized too
 // State machine
 enum GuardState {
     PATROLLING,
-    ALERT,
-    CHASING
+    ALERT
+   
 }
-state = GuardState.PATROLLING; // Start in the patrolling state
+projectile_speed = 8; // Set this to whatever speed you want the projectiles to move at
 
-// Start the guard on the path
-// Start the guard on the path (loop continuously)
-path_start(path, speed, path_action_restart, true);
+state = GuardState.PATROLLING;
+path_speed = patrol_speed;
+
+
+// Start patrolling
+path_start(path, patrol_speed, path_action_restart, true);
