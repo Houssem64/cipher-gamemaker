@@ -1,10 +1,10 @@
 {
   "$GMSprite":"",
-  "%Name":"spr_keypad",
+  "%Name":"spr_keypad_1",
   "bboxMode":0,
-  "bbox_bottom":21,
+  "bbox_bottom":91,
   "bbox_left":0,
-  "bbox_right":14,
+  "bbox_right":63,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -16,12 +16,12 @@
   ],
   "gridX":0,
   "gridY":0,
-  "height":23,
+  "height":92,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"62fddb92-0350-452c-9390-fe9f4000fbd1","blendMode":0,"displayName":"default","isLocked":false,"name":"62fddb92-0350-452c-9390-fe9f4000fbd1","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"spr_keypad",
+  "name":"spr_keypad_1",
   "nineSlice":null,
   "origin":0,
   "parent":{
@@ -69,7 +69,7 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"bd879045-06bd-462f-b0d9-81aa90c68633","path":"sprites/spr_keypad/spr_keypad.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"bd879045-06bd-462f-b0d9-81aa90c68633","path":"sprites/spr_keypad_1/spr_keypad_1.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"67c8a83e-15a3-4ec5-b3f4-8c17b9c59762","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
@@ -86,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":16,
+  "width":64,
 }
