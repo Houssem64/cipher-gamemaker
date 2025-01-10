@@ -8,8 +8,8 @@
   "name":"obj_computer",
   "overriddenProperties":[],
   "parent":{
-    "name":"interactable",
-    "path":"folders/Objects/interactable.yy",
+    "name":"computer object",
+    "path":"folders/Objects/computer object.yy",
   },
   "parentObjectId":{
     "name":"obj_interact",

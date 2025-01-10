@@ -13,7 +13,7 @@ if (instance_exists(obj_game_manager)) {
         y = pos[1];
     }
 }
-
+instance_deactivate_object(obj_security_guard)
 
 global.currentRoom = 0
 

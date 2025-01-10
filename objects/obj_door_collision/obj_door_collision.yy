@@ -6,8 +6,8 @@
   "name":"obj_door_collision",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"game objects",
+    "path":"folders/Objects/game objects.yy",
   },
   "parentObjectId":{
     "name":"obj_wall",

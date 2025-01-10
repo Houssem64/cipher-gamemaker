@@ -15,7 +15,7 @@
 // bktglitch_init()
 application_surface_draw_enable(false); //disabling automatic redrawing of the application surface
 display_set_gui_size(1920, 1080); //making sure the GUI layer stays always the same size
-window_set_fullscreen(true)
+window_set_fullscreen(false)
 
 
 alpha = 0; // Initial alpha value (0 = fully transparent, 1 = fully opaque)

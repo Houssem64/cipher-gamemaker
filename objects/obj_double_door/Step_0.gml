@@ -13,7 +13,7 @@ var player_in_range = collision_rectangle(
     false, 
     true
 );
-
+show_debug_message("openable" + string(openable))
 // Update popup visibility and handle interaction
 if (!player_in_range) {
     popup_id.visible = false;
@@ -31,7 +31,7 @@ if (!player_in_range) {
 
 // Handle room transition when player collides with door bounds
 if (has_been_opened && collision_rectangle(x1, y1, x2,y2, obj_Player, true, false)) {
-    room_goto(Level1);
+    room_goto(Level01);
 }
 
 // Stop animation when the door finishes opening

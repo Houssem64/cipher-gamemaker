@@ -11,8 +11,8 @@
   "name":"obj_interact",
   "overriddenProperties":[],
   "parent":{
-    "name":"interactable",
-    "path":"folders/Objects/interactable.yy",
+    "name":"computer object",
+    "path":"folders/Objects/computer object.yy",
   },
   "parentObjectId":null,
   "persistent":false,

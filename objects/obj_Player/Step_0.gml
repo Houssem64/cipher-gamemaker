@@ -58,7 +58,7 @@ x += global.xspeed;
 y+= global.yspeed;
 
 //depth 
-depth = -bbox_bottom
+
 
 
 

@@ -1,5 +1,5 @@
 has_been_opened = false;
-openable = true;
+openable = false;
 popup_id = instance_create_layer(x + 8, y, "Effects", obj_E_key);
 popup_id.visible = false;
 
