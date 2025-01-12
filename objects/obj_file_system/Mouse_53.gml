@@ -1,4 +1,25 @@
 //event_inherited()
+// Back button
+if (point_in_rectangle(mouse_x, mouse_y, x + 5, y + 25, x + 25, y + 45)) {
+    if (can_go_back) {
+        nav_position--;
+        current_path = ds_list_find_value(nav_history, nav_position);
+        UpdateFileList();
+        UpdateNavigationState();
+    }
+    exit;
+}
+
+// Forward button
+if (point_in_rectangle(mouse_x, mouse_y, x + 30, y + 25, x + 50, y + 45)) {
+    if (can_go_forward) {
+        nav_position++;
+        current_path = ds_list_find_value(nav_history, nav_position);
+        UpdateFileList();
+        UpdateNavigationState();
+    }
+    exit;
+}
 // First check if we're clicking within the file list area
 var file_list_top = y + 70;  // Starting Y position of file list
 var file_list_bottom = y + height - 5;
@@ -26,31 +47,32 @@ if (point_in_rectangle(mouse_x, mouse_y,
                 var _detail_array = string_split(_details, "|");
                 var _is_dir = _detail_array[0] == "DIR";
                 
-                if (_is_dir) {
-                    // Handle directory navigation
-                    if (selected_file == "..") {
-                        // Go up one directory level
-                        var path_parts = string_split(string_replace_all(current_path, "\\", "/"), "/");
-                        var new_path = "";
-                        
-                        // Rebuild path excluding the last directory
-                        for (var i = 0; i < array_length(path_parts) - 2; i++) {
-                            if (path_parts[i] != "") {
-                                new_path += path_parts[i] + "/";
-                            }
-                        }
-                        
-                        // Ensure we don't go above root
-                        if (new_path == "") new_path = "C:/";
-                        current_path = new_path;
-                    } else {
-                        // Enter the selected directory
-                        current_path += selected_file + "/";
-                    }
-                    
-                    // Update the file list
-                    UpdateFileList();
-                }
+              // In your directory navigation section (where you handle double-clicks)
+if (_is_dir) {
+    if (selected_file == "..") {
+        // Go up one directory level
+        var path_parts = string_split(string_replace_all(current_path, "\\", "/"), "/");
+        var new_path = "";
+        
+        // Rebuild path excluding the last directory
+        for (var i = 0; i < array_length(path_parts) - 2; i++) {
+            if (path_parts[i] != "") {
+                new_path += path_parts[i] + "/";
+            }
+        }
+        
+        // Ensure we don't go above root
+        if (new_path == "") new_path = "C:/";
+        current_path = new_path;
+    } else {
+        // Enter the selected directory
+        current_path += selected_file + "/";
+    }
+    
+    // Update the file list (which will now also update history)
+    UpdateFileList();
+    selected_file = "";
+}
             }
         }
     }
@@ -105,3 +127,4 @@ if (typing_path) {
         // Optionally validate and navigate to the typed path here
     }
 }
+

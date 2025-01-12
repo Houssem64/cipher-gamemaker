@@ -1,4 +1,6 @@
 function UpdateFileList() {
+	    AddToHistory(current_path);
+
     ds_list_clear(file_list);
     ds_map_clear(file_details);
     
@@ -24,13 +26,14 @@ function UpdateFileList() {
     }
     
     // Add parent directory if not in root
-    if (current_path != "C:/") {
+   if (current_path != "C:/") {
         ds_list_add(file_list, "..");
-        ds_map_add(file_details, "..", "DIR|" + date_datetime_string(current_time) + "|0");
+        ds_map_add(file_details, "..", "DIR|" + FormatDateTime(date_current_datetime()) + "|0");
     }
     
+    
     // Add directories and files
-    var names = variable_struct_get_names(current_content);
+ var names = variable_struct_get_names(current_content);
     for(var i = 0; i < array_length(names); i++) {
         var item_name = names[i];
         var item = current_content[$ item_name];
@@ -39,10 +42,10 @@ function UpdateFileList() {
         
         if (item.type == "DIR") {
             ds_map_add(file_details, item_name, 
-                "DIR|" + date_datetime_string(current_time) + "|0");
+                "DIR|" + FormatDateTime(item.date) + "|0");
         } else {
             ds_map_add(file_details, item_name,
-                "FILE|" + date_datetime_string(item.date) + "|" + string(item.size));
+                "FILE|" + FormatDateTime(item.date) + "|" + string(item.size));
         }
     }
     

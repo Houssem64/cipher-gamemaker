@@ -47,13 +47,19 @@ draw_rectangle(x + 5, y + 25, x + width - 5, y + 45, false);
 draw_set_color(c_black);
 draw_rectangle(x + 5, y + 25, x + width - 5, y + 45, true);
 
-// Draw navigation buttons
-draw_set_color(c_gray);
-draw_rectangle(x + 5, y + 25, x + 25, y + 45, false); // Back
-draw_rectangle(x + 30, y + 25, x + 50, y + 45, false); // Forward
-draw_set_color(c_black);
-draw_text(x + 10, y + 30, "←");
-draw_text(x + 35, y + 30, "→");
+// Back button
+draw_set_color(can_go_back ? c_gray : c_dkgray);
+draw_rectangle(x + 5, y + 25, x + 25, y + 45, false);
+draw_set_color(can_go_back ? c_black : c_gray);
+draw_set_color(c_aqua)
+draw_text(x + 12, y + 25, "<");
+
+// Forward button
+draw_set_color(can_go_forward ? c_gray : c_dkgray);
+draw_rectangle(x + 30, y + 25, x + 50, y + 45, false);
+draw_set_color(can_go_forward ? c_black : c_gray);
+draw_set_color(c_aqua)
+draw_text(x + 37, y + 25, ">");
 
 // Draw address bar content
 draw_set_color(c_black);
@@ -97,19 +103,28 @@ for (var i = scroll_offset; i < ds_list_size(file_list) && _items_drawn < max_it
         draw_text(x + 25, _y_pos, _item);
         
         // Draw size and date
-        if (!_is_dir) {
-            try {
-                var _size = real(_detail_array[2]);
-                draw_text(x + 25 + name_column_width, _y_pos, FormatFileSize(_size));
-            } catch(_) {
-                draw_text(x + 25 + name_column_width, _y_pos, "???");
-            }
-        } else {
-            draw_text(x + 25 + name_column_width, _y_pos, "");
-        }
+        //if (!_is_dir) {
+        //    try {
+        //        var _size = real(_detail_array[2]);
+        //        draw_text(x + 25 + name_column_width, _y_pos, FormatFileSize(_size));
+        //    } catch(_) {
+        //        draw_text(x + 25 + name_column_width, _y_pos, "???");
+        //    }
+        //} else {
+        //    draw_text(x + 25 + name_column_width, _y_pos, "");
+        //}
+		if (!_is_dir || _item == "..") {
+    // Size column
+    draw_text(x + 25 + name_column_width, _y_pos, 
+        _is_dir ? "" : FormatFileSize(real(_detail_array[2])));
+    
+    // Date column
+    draw_text(x + 25 + name_column_width + size_column_width, _y_pos, 
+        _detail_array[1]);  // This should now show properly formatted dates
+}
         
-        // Draw date
-        draw_text(x + 25 + name_column_width + size_column_width, _y_pos, _detail_array[1]);
+        //// Draw date
+        //draw_text(x + 25 + name_column_width + size_column_width, _y_pos, _detail_array[1]);
     }
     
     _y_pos += 20;

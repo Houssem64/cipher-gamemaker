@@ -8,43 +8,63 @@ min_width = 300;
 min_height = 200;
 
 // Define root directory structure
+// Add this to your root_directory structure initialization
 root_directory = {
     name: "C:",
     type: "DIR",
+    date: date_current_datetime(),
     content: {
         "System": {
             type: "DIR",
+            date: date_current_datetime(),
             content: {
-                "Windows": { type: "DIR", content: {} },
-                "System32": { type: "DIR", content: {} }
+                "Windows": { type: "DIR", date: date_current_datetime(), content: {} },
+                "System32": { type: "DIR", date: date_current_datetime(), content: {} }
             }
         },
         "Program Files": {
             type: "DIR",
+            date: date_current_datetime(),
             content: {
                 "Steam": { 
-                    type: "DIR", 
+                    type: "DIR",
+                    date: date_current_datetime(),
                     content: {
-                        "steamapps.exe": { type: "FILE", size: 1024576, date: date_current_datetime() }
+                        "steamapps.exe": { 
+                            type: "FILE", 
+                            size: 1024576, 
+                            date: date_current_datetime() 
+                        }
                     }
                 }
             }
         },
         "Users": {
             type: "DIR",
+            date: date_current_datetime(),
             content: {
                 "Admin": { 
-                    type: "DIR", 
+                    type: "DIR",
+                    date: date_current_datetime(),
                     content: {
                         "Documents": { 
-                            type: "DIR", 
+                            type: "DIR",
+                            date: date_current_datetime(),
                             content: {
-                                "readme.txt": { type: "FILE", size: 1024, date: date_current_datetime() },
-                                "notes.txt": { type: "FILE", size: 2048, date: date_current_datetime() }
+                                "readme.txt": { 
+                                    type: "FILE", 
+                                    size: 1024, 
+                                    date: date_current_datetime() 
+                                },
+                                "notes.txt": { 
+                                    type: "FILE", 
+                                    size: 2048, 
+                                    date: date_current_datetime() 
+                                }
                             }
                         },
-                        "Desktop": { type: "DIR", content: {} },
-                        "Downloads": { type: "DIR", content: {} }
+                        "Desktop": { type: "DIR", date: date_current_datetime(), content: {} },
+                        "Downloads": { type: "DIR", date: date_current_datetime(), content: {} }
                     }
                 }
             }
@@ -68,7 +88,8 @@ nav_position = 0;
 name_column_width = 250;
 size_column_width = 100;
 date_column_width = 150;
-
+can_go_back = false;
+can_go_forward = false;
 // Address bar variables
 typing_path = false;
 temp_path = "";
