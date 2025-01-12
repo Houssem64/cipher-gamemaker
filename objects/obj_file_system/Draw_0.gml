@@ -86,13 +86,13 @@ for (var i = scroll_offset; i < ds_list_size(file_list) && _items_drawn < max_it
         // Highlight selected item
         if (_item == selected_file) {
             draw_set_color(c_blue);
+            draw_set_alpha(0.3);
             draw_rectangle(x + 5, _y_pos - 2, x + width - 5, _y_pos + 18, false);
-            draw_set_color(c_white);
-        } else {
-            draw_set_color(c_black);
+            draw_set_alpha(1);
         }
         
-        // Draw folder/file icon and name
+        // Draw item text
+        draw_set_color(c_black);
         draw_text(x + 10, _y_pos, _is_dir ? "📁" : "📄");
         draw_text(x + 25, _y_pos, _item);
         

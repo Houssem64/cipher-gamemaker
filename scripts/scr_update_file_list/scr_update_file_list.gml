@@ -2,49 +2,49 @@ function UpdateFileList() {
     ds_list_clear(file_list);
     ds_map_clear(file_details);
     
-    // Ensure proper path format
+    // Normalize path
+    current_path = string_replace_all(current_path, "\\", "/");
     if (string_char_at(current_path, string_length(current_path)) != "/") {
         current_path += "/";
     }
-    current_path = string_replace_all(current_path, "\\", "/");
+    
+    // Get current directory content
+    var path_parts = string_split(string_replace_all(current_path, "/", " "), " ");
+    var current_dir = root_directory;
+    var current_content = current_dir.content;
+    
+    // Navigate to current directory
+    for(var i = 0; i < array_length(path_parts); i++) {
+        var part = path_parts[i];
+        if (part != "" && part != "C:") {
+            if (variable_struct_exists(current_content, part)) {
+                current_content = current_content[$ part].content;
+            }
+        }
+    }
     
     // Add parent directory if not in root
-    if (current_path != workingdirectory) {
+    if (current_path != "C:/") {
         ds_list_add(file_list, "..");
         ds_map_add(file_details, "..", "DIR|" + date_datetime_string(current_time) + "|0");
     }
     
-    // Find all files and directories
-    var _file = file_find_first(current_path + "*.*", fa_directory);
-    while (_file != "") {
-        if (_file != "." && _file != "..") {
-            ds_list_add(file_list, _file);
-            
-            var _full_path = current_path + _file;
-            var _is_dir = directory_exists(_full_path);
-            var _size = 0;
-            var _date = date_datetime_string(current_time);
-            
-            try {
-                if (!_is_dir) {
-                    if (file_exists(_full_path)) {
-                        _size = file_size(_full_path);
-                        _date = date_datetime_string(file_modified_time(_full_path));
-                    }
-                } else {
-                    _date = date_datetime_string(file_modified_time(_full_path));
-                }
-            } catch(_) {
-                _size = 0;
-                _date = date_datetime_string(current_time);
-            }
-            
-            var _details = (_is_dir ? "DIR|" : "FILE|") + _date + "|" + string(_size);
-            ds_map_add(file_details, _file, _details);
+    // Add directories and files
+    var names = variable_struct_get_names(current_content);
+    for(var i = 0; i < array_length(names); i++) {
+        var item_name = names[i];
+        var item = current_content[$ item_name];
+        
+        ds_list_add(file_list, item_name);
+        
+        if (item.type == "DIR") {
+            ds_map_add(file_details, item_name, 
+                "DIR|" + date_datetime_string(current_time) + "|0");
+        } else {
+            ds_map_add(file_details, item_name,
+                "FILE|" + date_datetime_string(item.date) + "|" + string(item.size));
         }
-        _file = file_find_next();
     }
-    file_find_close();
     
     // Sort directories and files separately
     var _temp_dirs = ds_list_create();
@@ -58,12 +58,10 @@ function UpdateFileList() {
             ds_list_add(_temp_files, _item);
         }
     }
-   
-    // Sort both lists
+    
     ds_list_sort(_temp_dirs, true);
     ds_list_sort(_temp_files, true);
     
-    // Combine sorted lists
     ds_list_clear(file_list);
     
     // Copy directories first
@@ -76,7 +74,6 @@ function UpdateFileList() {
         ds_list_add(file_list, ds_list_find_value(_temp_files, i));
     }
     
-    // Cleanup
     ds_list_destroy(_temp_dirs);
     ds_list_destroy(_temp_files);
 }

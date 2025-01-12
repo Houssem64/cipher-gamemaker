@@ -1,26 +1,4 @@
-//// Inherit from obj_window
-//event_inherited();
-
-//// File system properties
-//current_directory = "/"; // Start at the root directory
-//files = []; // Array to store files and directories
-//selected_file = -1; // Index of the selected file/directory
-
-//// File system window dimensions
-//file_system_x = x + 10; // X position of the file system content
-//file_system_y = y + 30; // Y position of the file system content
-//file_system_width = width - 20; // Width of the file system content
-//file_system_height = height - 40; // Height of the file system content
-
-//// Scrollbar properties
-//scroll_position = 0; // Current scroll position
-//scrollbar_width = 10; // Width of the scrollbar
-//scrollbar_visible = false; // Whether the scrollbar is visible
-//total_height = 0; // Total height of the file system content
-
-//// Load initial directory contents
-//load_directory(current_directory);
-event_inherited(); // Inherit from obj_window
+event_inherited();
 
 // Window properties
 window_title = "File Explorer";
@@ -29,15 +7,56 @@ height = 400;
 min_width = 300;
 min_height = 200;
 
+// Define root directory structure
+root_directory = {
+    name: "C:",
+    type: "DIR",
+    content: {
+        "System": {
+            type: "DIR",
+            content: {
+                "Windows": { type: "DIR", content: {} },
+                "System32": { type: "DIR", content: {} }
+            }
+        },
+        "Program Files": {
+            type: "DIR",
+            content: {
+                "Steam": { 
+                    type: "DIR", 
+                    content: {
+                        "steamapps.exe": { type: "FILE", size: 1024576, date: date_current_datetime() }
+                    }
+                }
+            }
+        },
+        "Users": {
+            type: "DIR",
+            content: {
+                "Admin": { 
+                    type: "DIR", 
+                    content: {
+                        "Documents": { 
+                            type: "DIR", 
+                            content: {
+                                "readme.txt": { type: "FILE", size: 1024, date: date_current_datetime() },
+                                "notes.txt": { type: "FILE", size: 2048, date: date_current_datetime() }
+                            }
+                        },
+                        "Desktop": { type: "DIR", content: {} },
+                        "Downloads": { type: "DIR", content: {} }
+                    }
+                }
+            }
+        }
+    }
+};
+
 // File explorer specific variables
-workingdirectory = "";
-current_path = string_replace_all(workingdirectory, "\\", "/");
-if (string_char_at(current_path, string_length(current_path)) != "/") {
-    current_path += "/";
-}
+current_path = "C:/";
 selected_file = "";
 scroll_offset = 0;
-max_items_visible = floor((height - 80) / 20); // Account for header and address bar
+max_items_visible = floor((height - 80) / 20);
 
 // Navigation history
 nav_history = ds_list_create();
@@ -56,5 +75,9 @@ temp_path = "";
 
 // File system content
 file_list = ds_list_create();
-file_details = ds_map_create(); // Stores size and date for each file
+file_details = ds_map_create();
+// Add these if you don't have them already
+item_height = 20;  // Height of each item in the list
+list_start_y = 70; // Y offset where the file list starts
+// Initialize the file list
 UpdateFileList();
