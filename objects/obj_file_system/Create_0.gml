@@ -30,8 +30,8 @@ min_width = 300;
 min_height = 200;
 
 // File explorer specific variables
-current_path = working_directory;
-current_path = string_replace_all(working_directory, "\\", "/");
+workingdirectory = "";
+current_path = string_replace_all(workingdirectory, "\\", "/");
 if (string_char_at(current_path, string_length(current_path)) != "/") {
     current_path += "/";
 }

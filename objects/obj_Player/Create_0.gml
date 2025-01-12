@@ -10,7 +10,15 @@ if (!variable_global_exists("door_solid")) {
 //    global.came_from_game = false;
 //}
 
+//// Give a hint
+//if (instance_exists(obj_ai_companion)) {
+//    obj_ai_companion.add_hint("The keypad code is hidden in the maintenance logs.");
+//}
 
+//// Assign a mission
+//if (instance_exists(obj_ai_companion)) {
+//    obj_ai_companion.add_mission("Find the security office and disable the cameras.");
+//}
 move_speed = 1;
 alarm[0] = 1;
 sprite[0] = spr_Player_right;

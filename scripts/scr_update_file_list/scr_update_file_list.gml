@@ -2,17 +2,19 @@ function UpdateFileList() {
     ds_list_clear(file_list);
     ds_map_clear(file_details);
     
+    // Ensure proper path format
     if (string_char_at(current_path, string_length(current_path)) != "/") {
         current_path += "/";
     }
-    
     current_path = string_replace_all(current_path, "\\", "/");
     
-    if (current_path != working_directory) {
+    // Add parent directory if not in root
+    if (current_path != workingdirectory) {
         ds_list_add(file_list, "..");
         ds_map_add(file_details, "..", "DIR|" + date_datetime_string(current_time) + "|0");
     }
     
+    // Find all files and directories
     var _file = file_find_first(current_path + "*.*", fa_directory);
     while (_file != "") {
         if (_file != "." && _file != "..") {
@@ -23,12 +25,18 @@ function UpdateFileList() {
             var _size = 0;
             var _date = date_datetime_string(current_time);
             
-            if (!_is_dir && file_exists(_full_path)) {
-                _size = file_size(_full_path);
-                try {
+            try {
+                if (!_is_dir) {
+                    if (file_exists(_full_path)) {
+                        _size = file_size(_full_path);
+                        _date = date_datetime_string(file_modified_time(_full_path));
+                    }
+                } else {
                     _date = date_datetime_string(file_modified_time(_full_path));
-                } catch(_) {
                 }
+            } catch(_) {
+                _size = 0;
+                _date = date_datetime_string(current_time);
             }
             
             var _details = (_is_dir ? "DIR|" : "FILE|") + _date + "|" + string(_size);
@@ -38,6 +46,7 @@ function UpdateFileList() {
     }
     file_find_close();
     
+    // Sort directories and files separately
     var _temp_dirs = ds_list_create();
     var _temp_files = ds_list_create();
     
@@ -49,25 +58,25 @@ function UpdateFileList() {
             ds_list_add(_temp_files, _item);
         }
     }
-    
+   
+    // Sort both lists
     ds_list_sort(_temp_dirs, true);
     ds_list_sort(_temp_files, true);
     
+    // Combine sorted lists
     ds_list_clear(file_list);
-    ds_list_copy_to(_temp_dirs, file_list);
-    ds_list_copy_to(_temp_files, file_list);
     
+    // Copy directories first
+    for(var i = 0; i < ds_list_size(_temp_dirs); i++) {
+        ds_list_add(file_list, ds_list_find_value(_temp_dirs, i));
+    }
+    
+    // Then copy files
+    for(var i = 0; i < ds_list_size(_temp_files); i++) {
+        ds_list_add(file_list, ds_list_find_value(_temp_files, i));
+    }
+    
+    // Cleanup
     ds_list_destroy(_temp_dirs);
     ds_list_destroy(_temp_files);
-}
-
-function FormatFileSize(_size) {
-    if (_size < 1024) return string(_size) + " B";
-    if (_size < 1048576) return string(floor(_size/1024)) + " KB";
-    if (_size < 1073741824) return string_format(_size/1048576, 0, 2) + " MB";
-    return string_format(_size/1073741824, 0, 2) + " GB";
-}
-
-function FormatDateString(timestamp) {
-    return date_datetime_string(timestamp);
 }

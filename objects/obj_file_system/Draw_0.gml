@@ -69,36 +69,46 @@ draw_line(x, _header_y, x + width, _header_y);
 draw_text(x + 25, _header_y, "Name");
 draw_text(x + 25 + name_column_width, _header_y, "Size");
 draw_text(x + 25 + name_column_width + size_column_width, _header_y, "Date Modified");
+// ... previous drawing code ...
 
 // Draw files and directories
-draw_set_color(c_white);
-draw_rectangle(x + 5, y + 70, x + width - 5, y + height - 5, false);
-
 var _y_pos = y + 75;
 var _items_drawn = 0;
 
 for (var i = scroll_offset; i < ds_list_size(file_list) && _items_drawn < max_items_visible; i++) {
     var _item = ds_list_find_value(file_list, i);
     var _details = ds_map_find_value(file_details, _item);
-    var _detail_array = string_split(_details, "|");
-    var _is_dir = _detail_array[0] == "DIR";
     
-    // Highlight selected item
-    if (_item == selected_file) {
-        draw_set_color(c_blue);
-        draw_rectangle(x + 5, _y_pos - 2, x + width - 5, _y_pos + 18, false);
-        draw_set_color(c_white);
-    } else {
-        draw_set_color(c_black);
-    }
-    
-    // Draw folder/file icon and name
-    draw_text(x + 10, _y_pos, _is_dir ? "📁" : "📄");
-    draw_text(x + 25, _y_pos, _item);
-    
-    // Draw size and date
-    if (!_is_dir || _item == "..") {
-        draw_text(x + 25 + name_column_width, _y_pos, _is_dir ? "" : FormatFileSize(real(_detail_array[2])));
+    if (_details != undefined) {
+        var _detail_array = string_split(_details, "|");
+        var _is_dir = _detail_array[0] == "DIR";
+        
+        // Highlight selected item
+        if (_item == selected_file) {
+            draw_set_color(c_blue);
+            draw_rectangle(x + 5, _y_pos - 2, x + width - 5, _y_pos + 18, false);
+            draw_set_color(c_white);
+        } else {
+            draw_set_color(c_black);
+        }
+        
+        // Draw folder/file icon and name
+        draw_text(x + 10, _y_pos, _is_dir ? "📁" : "📄");
+        draw_text(x + 25, _y_pos, _item);
+        
+        // Draw size and date
+        if (!_is_dir) {
+            try {
+                var _size = real(_detail_array[2]);
+                draw_text(x + 25 + name_column_width, _y_pos, FormatFileSize(_size));
+            } catch(_) {
+                draw_text(x + 25 + name_column_width, _y_pos, "???");
+            }
+        } else {
+            draw_text(x + 25 + name_column_width, _y_pos, "");
+        }
+        
+        // Draw date
         draw_text(x + 25 + name_column_width + size_column_width, _y_pos, _detail_array[1]);
     }
     
