@@ -1,4 +1,3 @@
-// Step Event of obj_email_window
 event_inherited();
 
 // Handle mouse input
@@ -29,10 +28,19 @@ if (mouse_check_button_pressed(mb_left)) {
             if (new_email.to != "" && new_email.subject != "") {
                 array_insert(emails, 0, {
                     subject: new_email.subject,
-                    sender: "me@email.com", // You could make this configurable
+                    sender: "me@email.com",
                     date: current_date_string(),
                     body: new_email.body
                 });
+                
+                // Save emails immediately after sending
+                var json_string = json_stringify(emails);
+                var buffer = buffer_create(string_byte_length(json_string) + 1, buffer_fixed, 1);
+                buffer_write(buffer, buffer_string, json_string);
+                buffer_save(buffer, "email_data.json");
+                buffer_delete(buffer);
+                
+                show_debug_message("Email sent and saved");
                 composing_email = false;
             }
         }
@@ -93,11 +101,4 @@ if (composing_email && global.selected_field != "") {
             new_email.body = keyboard_string;
             break;
     }
-}
-
-// Helper function to get current date as string
-function current_date_string() {
-    return string(current_year) + "-" + 
-           string(current_month) + "-" + 
-           string(current_day);
 }

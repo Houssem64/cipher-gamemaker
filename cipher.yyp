@@ -129,6 +129,7 @@
     {"id":{"name":"scr_file_system","path":"scripts/scr_file_system/scr_file_system.yy",},},
     {"id":{"name":"scr_load_directory","path":"scripts/scr_load_directory/scr_load_directory.yy",},},
     {"id":{"name":"scr_phone_functions","path":"scripts/scr_phone_functions/scr_phone_functions.yy",},},
+    {"id":{"name":"scr_save_load_system","path":"scripts/scr_save_load_system/scr_save_load_system.yy",},},
     {"id":{"name":"scr_terminal_commands","path":"scripts/scr_terminal_commands/scr_terminal_commands.yy",},},
     {"id":{"name":"scr_update_file_list","path":"scripts/scr_update_file_list/scr_update_file_list.yy",},},
     {"id":{"name":"ScriptMacros","path":"scripts/ScriptMacros/ScriptMacros.yy",},},
