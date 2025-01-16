@@ -35,6 +35,7 @@ if global.yspeed > 0 and face ==UP {face = DOWN}
 if global.yspeed < 0 and face ==DOWN {face = UP}
 if global.xspeed == 0 and global.yspeed = 0 {
 	face = IDLE}
+
 sprite_index = sprite[face]
 //colission 
 

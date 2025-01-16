@@ -56,7 +56,7 @@ function load_next_text() {
         if (callback_object != noone && instance_exists(callback_object)) {
             if (callback_script != noone) {
                 with (callback_object) {
-                    script_execute(other.callback_script);
+                 //   script_execute(other.callback_script);
                 }
             }
         }

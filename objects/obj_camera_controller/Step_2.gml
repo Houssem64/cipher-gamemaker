@@ -12,3 +12,4 @@ if (instance_exists(obj_Player)) {
     
     camera_set_view_pos(view, _x, _y);
 }
+

@@ -1,10 +1,18 @@
-if (has_new_message) {
-    notification_alpha += 0.05;
-    if (notification_alpha > 1) notification_alpha = 1;
-} else {
-    notification_alpha -= 0.05;
-    if (notification_alpha < 0) notification_alpha = 0;
-}
 if keyboard_check_pressed(ord("P")) {
-    toggle_phone();
+    state.visible = !state.visible;
+}
+
+if (!state.visible) exit;
+
+if (current_time mod 1000 < 16) {
+    update_time();
+}
+
+if (state.battery > 0 && irandom(1000) == 0) {
+    state.battery--;
+}
+
+// Add back button check
+if (keyboard_check_pressed(vk_escape)) {
+    return_to_home();
 }

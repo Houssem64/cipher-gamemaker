@@ -70,7 +70,7 @@
 //    draw_text(notif_x1 + 10, notif_y1 + 10, "New Mission Available!");
 //    draw_set_alpha(1);
 //}
-
+var default_font = draw_get_font()
 draw_set_font(font2);
 if (visible) {
     // Mission box dimensions - increased width
@@ -181,3 +181,5 @@ function string_wrap(str, width) {
     text_wrapped += string_copy(str, last_space_pos + 1, str_len - last_space_pos);
     return text_wrapped;
 }
+
+draw_set_font(default_font);

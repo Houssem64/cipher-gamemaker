@@ -8,6 +8,7 @@ if(!has_been_interacted) {
             has_been_interacted = true;
             computer_open = true;
 			global.previous_room = Room1;
+			
 			room_goto(rm_computer); // Replace with your computer room name
     
            

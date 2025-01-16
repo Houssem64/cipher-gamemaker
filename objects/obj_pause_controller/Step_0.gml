@@ -4,7 +4,7 @@ if (keyboard_check_pressed(vk_escape)) {
         instance_deactivate_all(true);
         instance_activate_object(obj_pause_controller);
 		instance_activate_object(obj_game_manager);
-		instance_activate_object(obj_camera_controller);
+		
     } else {
         instance_activate_all();
     }

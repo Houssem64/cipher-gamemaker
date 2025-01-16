@@ -1,5 +1,5 @@
 // Create Event
-view_width = 1920/6;
+view_width = 1920/6
 view_height = 1080/6;
 window_scale = 3;
 

@@ -27,4 +27,5 @@ sprite[2] = spr_Player_left
 sprite[3] = spr_Player_down
 sprite[4] = spr_Player_idle
 
+
 face = IDLE;

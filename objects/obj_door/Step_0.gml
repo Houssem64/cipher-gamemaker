@@ -10,18 +10,19 @@ if (!has_been_opened) {
     image_index = 0;
     global.door_solid = true;  // Door is solid while closed
 
-    // Check if the player presses "E" and the door is not openable
-    if (global.door_solid && keyboard_check_pressed(ord("E"))) {
-        var dialog = instance_create_layer(0, 0, "Instances", obj_dialog_manager);
-        dialog.start_dialog(["Complete all missions to unlock the door."]);
-        dialog.callback_object = id;
-    }
+
 
     // Handle collision with player for popup visibility
     if (!collision_rectangle(Rectanglex1, Rectangley1,Rectanglex2, Rectangley2, obj_Player, false, true)) {
         popup_id.visible = false;
     } else {
         popup_id.visible = true;
+		    // Check if the player presses "E" and the door is not openable
+    if (global.door_solid && keyboard_check_pressed(ord("E"))) {
+        dialog = instance_create_layer(0, 0, "Instances", obj_dialog_manager);
+        dialog.start_dialog(["Complete all missions to unlock the door."]);
+        dialog.callback_object = id;
+    }
         // Check if the player presses "E" and the door is openable
         if (keyboard_check_pressed(ord("E")) && global.openable) {
             has_been_opened = true;

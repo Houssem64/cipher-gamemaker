@@ -40,6 +40,79 @@ for (var i = 0; i < array_length(emails); i++) {
 }
 
 // Draw right panel (compose or view email)
+// Add this to your Draw Event where you draw the email content
+if (selected_email >= 0 && !composing_email) {
+    var button_y = y + 35;
+    
+    // Draw delete button with hover effect
+    draw_set_color(delete_button_hover ? c_maroon : c_red);
+    draw_rectangle(
+        x + width - 90,
+        button_y,
+        x + width - 20,
+        button_y + 25,
+        false
+    );
+    
+    // Draw button text
+    draw_set_color(c_white);
+    draw_set_halign(fa_center);
+    draw_text(
+        x + width - 55,
+        button_y + 5,
+        "Delete"
+    );
+    draw_set_halign(fa_left);
+    
+    // Draw confirmation dialog if active
+    if (showing_delete_confirm) {
+        // Semi-transparent background overlay
+        draw_set_alpha(0.5);
+        draw_set_color(c_black);
+        draw_rectangle(x, y, x + width, y + height, false);
+        draw_set_alpha(1);
+        
+        // Dialog box
+        var dialog_width = 400;
+        var dialog_height = 150;
+        var dialog_x = x + (width - dialog_width) / 2;
+        var dialog_y = y + (height - dialog_height) / 2 ;
+        
+        // Dialog background
+        draw_set_color(c_white);
+        draw_rectangle(dialog_x, dialog_y, dialog_x + dialog_width, dialog_y + dialog_height, false);
+        draw_set_color(c_black);
+        draw_rectangle(dialog_x, dialog_y, dialog_x + dialog_width, dialog_y + dialog_height, true);
+        
+        // Dialog title
+        draw_set_halign(fa_center);
+        draw_text(dialog_x + dialog_width/2, dialog_y + 20, "Confirm Delete");
+        
+        // Dialog message
+        draw_text(dialog_x + dialog_width/2, dialog_y + 60, "Are you sure you want to delete this email?");
+        
+        // Yes button
+        var button_width = 80;
+        var button_height = 30;
+        var yes_x = dialog_x + dialog_width/2 - button_width - 10;
+        var no_x = dialog_x + dialog_width/2 + 10;
+        var buttons_y = dialog_y + dialog_height - 50;
+        
+        draw_set_color(c_red);
+        draw_rectangle(yes_x, buttons_y, yes_x + button_width, buttons_y + button_height, false);
+        draw_set_color(c_white);
+		
+        draw_text(yes_x + button_width/2, buttons_y + button_height/2-10, "Yes");
+        
+        // No button
+        draw_set_color(c_gray);
+        draw_rectangle(no_x, buttons_y, no_x + button_width, buttons_y + button_height, false);
+        draw_set_color(c_white);
+        draw_text(no_x + button_width/2, buttons_y + button_height/2-10, "No");
+        
+        draw_set_halign(fa_left);
+    }
+}
 if (composing_email) {
     var content_x = x + left_panel_width + 10;
     var content_y = content_start_y + 10;

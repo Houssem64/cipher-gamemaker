@@ -2,6 +2,8 @@ event_inherited();
 
 // Handle mouse input
 if (mouse_check_button_pressed(mb_left)) {
+	
+	
     var content_start_y = y + 30;
     var left_panel_width = width * 0.35;
     
@@ -82,8 +84,71 @@ if (mouse_check_button_pressed(mb_left)) {
             }
         }
     }
-}
+	if (selected_email >= 0 && !composing_email) {
+		  var button_y = y + 35;
+        
+        if (!showing_delete_confirm) {
+            // Check if delete button was clicked
+            if (point_in_rectangle(mouse_x, mouse_y,
+                x + width - 90,
+                button_y,
+                x + width - 20,
+                button_y + 25)) {
+                showing_delete_confirm = true;
+            }
+        } else {
+            // Handle confirmation dialog buttons
+            var dialog_width = 300;
+            var dialog_height = 150;
+            var dialog_x = x + (width - dialog_width) / 2;
+            var dialog_y = y + (height - dialog_height) / 2;
+            
+            var button_width = 80;
+            var button_height = 30;
+            var yes_x = dialog_x + dialog_width/2 - button_width - 10;
+            var no_x = dialog_x + dialog_width/2 + 10;
+            var buttons_y = dialog_y + dialog_height - 50;
+            
+            // Check Yes button
+            if (point_in_rectangle(mouse_x, mouse_y,
+                yes_x, buttons_y,
+                yes_x + button_width, buttons_y + button_height)) {
+                // Delete the email
+                array_delete(emails, selected_email, 1);
+                
+                // Save emails after deletion
+                var json_string = json_stringify(emails);
+                var buffer = buffer_create(string_byte_length(json_string) + 1, buffer_fixed, 1);
+                buffer_write(buffer, buffer_string, json_string);
+                buffer_save(buffer, "email_data.json");
+                buffer_delete(buffer);
+                
+                // Reset selection and close dialog
+                selected_email = -1;
+                showing_delete_confirm = false;
+            }
+            
+            // Check No button
+            if (point_in_rectangle(mouse_x, mouse_y,
+                no_x, buttons_y,
+                no_x + button_width, buttons_y + button_height)) {
+                showing_delete_confirm = false;
+            }
+        }
+}}
 
+// Update hover state
+if (selected_email >= 0 && !composing_email && !showing_delete_confirm) {
+    var button_y = y + 35;
+    delete_button_hover = point_in_rectangle(mouse_x, mouse_y,
+        x + width - 90,
+        button_y,
+        x + width - 20,
+        button_y + 25
+    );
+} else {
+    delete_button_hover = false;
+}
 // Handle keyboard input for compose form
 if (composing_email && global.selected_field != "") {
     if (keyboard_check_pressed(vk_backspace) && string_length(keyboard_string) > 0) {

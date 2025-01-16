@@ -1,4 +1,5 @@
 // Draw box
+var default_font = draw_get_font()
 draw_set_color(c_lime);
 draw_rectangle(box_x, box_y, box_x + box_width, box_y + box_height, true);
 
@@ -27,3 +28,4 @@ draw_text_ext(
     string_height("M") * 1.5,
     box_width - (padding * 2)
 );
+draw_set_font(default_font);

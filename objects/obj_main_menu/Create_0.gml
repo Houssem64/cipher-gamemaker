@@ -12,10 +12,10 @@
 
 // You can init the shader here manually if you want, otherwise it will be done automatically the first
 // time you run bktglitch_activate(), which might take a few frames.
-// bktglitch_init()
+ bktglitch_init()
 application_surface_draw_enable(false); //disabling automatic redrawing of the application surface
 display_set_gui_size(1920, 1080); //making sure the GUI layer stays always the same size
-window_set_fullscreen(false)
+window_set_fullscreen(true)
 
 
 alpha = 0; // Initial alpha value (0 = fully transparent, 1 = fully opaque)

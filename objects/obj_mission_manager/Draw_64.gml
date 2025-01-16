@@ -1,3 +1,4 @@
+var default_font = draw_get_font()
 function draw_mission_completion() {
     if (show_completion_message) {
         draw_set_alpha(mission_complete_alpha);
@@ -56,7 +57,7 @@ function draw_mission_info() {
         }
     }
 }
-
+draw_set_font(default_font)
 //// Clean Up Event
 //if (ds_exists(missions, ds_type_list)) ds_list_destroy(missions);
 //if (ds_exists(active_missions, ds_type_list)) ds_list_destroy(active_missions);

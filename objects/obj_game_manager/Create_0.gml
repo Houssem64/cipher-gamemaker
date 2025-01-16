@@ -13,20 +13,11 @@ if (instance_exists(obj_game_manager)) {
         y = pos[1];
     }
 }
+// Set the delay in steps (e.g., 60 steps = 1 second at 60 FPS)
+alarm[0] = 60; // Replace [0] with any available alarm index
 
 
 global.currentRoom = 0
 
-   if (room_get_name(room) == "Room1") {
-	  
-  var dialog = instance_create_layer(0, 0, "UI", obj_dialog_manager);
- dialog.start_dialog(["First message", "Second message", "Third message"]);
-  dialog.callback_object = id;
-
-dialog.callback_script = function() {
-   
-    // Put your code here
-};
-
-   }
+ 
 
